@@ -1,4 +1,4 @@
-package es.osalguero.tiendaelect.modelo;
+package es.osalguero.tiendaelect.modelo.persona;
 
 /**
  * Clase modelo para los usuarios de la tienda

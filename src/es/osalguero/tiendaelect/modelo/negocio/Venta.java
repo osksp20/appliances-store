@@ -1,6 +1,9 @@
-package es.osalguero.tiendaelect.modelo;
+package es.osalguero.tiendaelect.modelo.negocio;
 
 import java.util.List;
+
+import es.osalguero.tiendaelect.modelo.elect.Electrodomestico;
+import es.osalguero.tiendaelect.modelo.persona.Cliente;
 
 public class Venta {
 

@@ -1,4 +1,4 @@
-package es.osalguero.tiendaelect.modelo;
+package es.osalguero.tiendaelect.modelo.persona;
 
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
 

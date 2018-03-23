@@ -1,4 +1,4 @@
-package es.osalguero.tiendaelect.modelo;
+package es.osalguero.tiendaelect.modelo.persona;
 
 /**
  * Esta clase representa a un cliente de la tienda 
