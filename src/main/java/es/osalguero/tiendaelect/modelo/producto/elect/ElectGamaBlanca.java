@@ -1,4 +1,10 @@
-package es.osalguero.tiendaelect.modelo.elect;
+package es.osalguero.tiendaelect.modelo.producto.elect;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import es.osalguero.tiendaelect.constants.SeccionTienda;
 
 /**
  * Modela electrodomesticos de tipo Gama Blanca:
@@ -7,6 +13,8 @@ package es.osalguero.tiendaelect.modelo.elect;
  * @author o.salguero.palacios
  *
  */
+@XmlRootElement(namespace="http://es.osalguero.elect/TiendaElectrodomesticos", name="electGamaBlanca")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class ElectGamaBlanca extends Electrodomestico {
 
 	private int alto;
@@ -35,6 +43,11 @@ public class ElectGamaBlanca extends Electrodomestico {
 	
 	public void setProfundidad(int profundidad) {
 		this.profundidad = profundidad;
+	}
+
+	@Override
+	public SeccionTienda getSeccionTienda() {
+		return SeccionTienda.GAMA_BLANCA;
 	}
 	
 }
