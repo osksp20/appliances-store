@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:clientes xmlns:ns2="http://es.osalguero.elect/TiendaElectrodomesticos"><ns2:cliente><nombre>Prueba</nombre><apellido1>Prueba1</apellido1><apellido2>Prueba2</apellido2><telefono>666666666</telefono><direccion>Direccion prueba</direccion><dni>11111111A</dni></ns2:cliente></ns2:clientes>
