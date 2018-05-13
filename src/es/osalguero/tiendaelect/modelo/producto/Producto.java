@@ -90,4 +90,9 @@ public abstract class Producto extends ElementoTiendaGenerico implements Product
 				((Producto)o).getId() != null && this.getId() != null &&
 				((Producto)o).getId().equals(this.id);
 	}
+	
+	@Override
+	public String toString() {
+		return this.getMarca().concat(" ").concat(this.getModelo()).concat("(").concat(this.getTipo()).concat(")");
+	}
 }

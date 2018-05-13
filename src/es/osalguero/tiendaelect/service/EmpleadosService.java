@@ -24,7 +24,7 @@ public class EmpleadosService extends GenericService<Empleado> {
 	@Override
 	protected void validaNuevoElemento(Empleado empleado) throws Exception {
 		if(empleado.getLogin() == null) {
-			throw new Exception("El Login del empleado a añadir no puede ser nulo");
+			throw new Exception("El Login del empleado a aÃ±adir no puede ser nulo");
 		}
 		for(Empleado empleadoListado : this.listado()) {
 			if(empleadoListado.getLogin().equals(empleado.getLogin())) {
@@ -41,17 +41,17 @@ public class EmpleadosService extends GenericService<Empleado> {
 	@Override
 	protected void validaElementoABorrar(Empleado empleado) throws Exception {
 		if(empleado.esAdministrador() && !masAdministradores(empleado)) {
-			throw new Exception("No puede eliminarse el empleado porque es el único administrador del sistema");
+			throw new Exception("No puede eliminarse el empleado porque es el Ãºnico administrador del sistema");
 		}
 	}
 
 	@Override
 	protected void validaElementoAModificar(Empleado empleado) throws Exception {
 		if(empleado.getLogin() == null) {
-			throw new Exception("Debe indicarse un ID de empleado válido");
+			throw new Exception("Debe indicarse un ID de empleado vÃ¡lido");
 		}
 		if(!empleado.esAdministrador() && !masAdministradores(empleado)) {
-			throw new Exception("El usuario es el único administrador del sistema");
+			throw new Exception("El usuario es el Ãºnico administrador del sistema");
 		}
 		if(empleado.getNombre() == null) {
 			throw new Exception("El nombre del empleado no puede ser nulo");
@@ -80,7 +80,6 @@ public class EmpleadosService extends GenericService<Empleado> {
 	@Override
 	protected void actualizaEstadoTienda(Empleado elemento) throws Exception {
 		//Nothing to do
-		
 	}
 	
 	/**
@@ -115,11 +114,11 @@ public class EmpleadosService extends GenericService<Empleado> {
 		empleado.setApellido1("Administrador");
 		empleado.setApellido2("Administrador");
 		empleado.setEsAdministrador(true);
-		empleado.setCategoria(CategoriaEmpleado.ADMIN);
+		empleado.setCategoria(CategoriaEmpleado.COMERCIAL);
 		try {
 			this.crear(empleado);
 		} catch(Exception e) {
-			throw new Exception("No se ha podido inicializar correctamente la aplicación", e);
+			throw new Exception("No se ha podido inicializar correctamente la aplicaciÃ³n", e);
 		}
 	}
 	

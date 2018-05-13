@@ -1,5 +1,7 @@
 package es.osalguero.tiendaelect.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -53,7 +55,7 @@ public class VentasService extends GenericService<Venta> {
 	@Override
 	protected void validaNuevoElemento(Venta venta) throws Exception {
 		if(venta.getId() != null) {
-			throw new Exception("El ID de la venta a aÒadir debe ser nulo");
+			throw new Exception("El ID de la venta a a√±adir debe ser nulo");
 		}
 	}
 
@@ -61,6 +63,7 @@ public class VentasService extends GenericService<Venta> {
 	protected void inicializarNuevoElemento(Venta venta) {
 		Calendar cal = Calendar.getInstance();
 		try {
+			//CUIDADO Esto es para que no se solapen los IDs generados
 			Thread.sleep(1);
 		} catch(Exception e) {
 			//Nothing to do
@@ -77,28 +80,28 @@ public class VentasService extends GenericService<Venta> {
 	@Override
 	protected void validaElementoAModificar(Venta venta) throws Exception {
 		if(venta.getId() == null) {
-			throw new Exception("No se ha indicado un ID de venta v·lido");
+			throw new Exception("No se ha indicado un ID de venta v√°lido");
 		}
 		if(venta.getCliente() == null || venta.getCliente().getDni() == null) {
-			throw new Exception("No se ha indicado un DNI de cliente v·lido");
+			throw new Exception("No se ha indicado un DNI de cliente v√°lido");
 		}
 		if(clientesService.getClienteByDni(venta.getCliente().getDni()) == null) {
 			throw new Exception("El cliente indicado no existe");
 		}
 		if(venta.getArticulosVenta() == null || venta.getArticulosVenta().isEmpty()) {
-			throw new Exception("No se ha indicado una lista de productos v·lida");
+			throw new Exception("No se ha indicado una lista de productos v√°lida");
 		}
 		Venta ventaExistente = this.getVentaById(venta.getId());
 		for(ArticuloVenta articuloVenta : venta.getArticulosVenta()) {
 			if(articuloVenta.getProducto() == null || articuloVenta.getProducto().getId() == null) {
-				throw new Exception("No se ha indicado un ID de producto v·lido para la venta");
+				throw new Exception("No se ha indicado un ID de producto v√°lido para la venta");
 			}
 			Producto producto = productosService.getProductoById(articuloVenta.getProducto().getId());
 			if(producto == null) {
 				throw new Exception("El producto indicado no existe");
 			}
 			if(articuloVenta.getCantidad() == null) {
-				throw new Exception("No se ha indicado el n˙mero de productos comprados");
+				throw new Exception("No se ha indicado el n√∫mero de productos comprados");
 			}
 			int cantidad = articuloVenta.getCantidad();
 			if(ventaExistente != null) {
@@ -110,7 +113,7 @@ public class VentasService extends GenericService<Venta> {
 				}
 			}
 			if(producto.getCantidad() < cantidad) {
-				throw new Exception("No existen artÌculos disponibles");
+				throw new Exception("No existen art√≠culos disponibles");
 			}
 			if(articuloVenta.getPrecio() == null) {
 				throw new Exception("No se ha indicado el precio del producto comprado");
@@ -169,7 +172,7 @@ public class VentasService extends GenericService<Venta> {
 	}
 	
 	/************************************
-	 * MÈtodos propios de este servicio *
+	 * M√©todos propios de este servicio *
 	 ************************************/	
 	public Venta getVentaById(Long id) {
 		for(Venta venta : listado) {
@@ -196,13 +199,13 @@ public class VentasService extends GenericService<Venta> {
 		if(venta == null) {
 			throw new Exception("No existe la venta indicada");
 		}
-		Double importe = new Double(0);
+		BigDecimal importe = new BigDecimal(0);
 		for(ArticuloVenta articulo : venta.getArticulosVenta()) {
-			importe = importe + (articulo.getCantidad() * articulo.getPrecio());
+			importe = importe.add(new BigDecimal(articulo.getPrecio()));
 		}
-		return importe;
+		return importe.setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
-
+	
 	public List<Venta> getVentasByCliente(Cliente cliente) {
 		List<Venta> ventas = new ArrayList<Venta>();
 		for(Venta venta : this.listado) {

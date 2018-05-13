@@ -11,6 +11,7 @@ import es.osalguero.tiendaelect.modelo.decorator.ReparacionesTiendaDecorator;
 import es.osalguero.tiendaelect.modelo.negocio.ArticuloVenta;
 import es.osalguero.tiendaelect.modelo.negocio.Reparacion;
 import es.osalguero.tiendaelect.modelo.negocio.Venta;
+import es.osalguero.tiendaelect.modelo.persona.Cliente;
 import es.osalguero.tiendaelect.modelo.persona.Empleado;
 
 public class ReparacionesService extends GenericService<Reparacion> {
@@ -50,19 +51,19 @@ public class ReparacionesService extends GenericService<Reparacion> {
 	@Override
 	protected void validaNuevoElemento(Reparacion reparacion) throws Exception {
 		if(reparacion.getId() != null) {
-			throw new Exception("El ID de la reparaci髇 no puede estar informado");
+			throw new Exception("El ID de la reparaci贸n no puede estar informado");
 		}
 		if(reparacion.getFechaReparacion() != null) {
-			throw new Exception("La fecha de la reparaci髇 no puede estar informada");
+			throw new Exception("La fecha de la reparaci贸n no puede estar informada");
 		}
 		if(reparacion.getFechaEntrega() != null) {
 			throw new Exception("La fecha de entrega no puede estar informada");
 		}
 		if(reparacion.getImporte() != null) {
-			throw new Exception("El importe de la reparaci髇 no puede informarse hasta que el producto sea devuelto");
+			throw new Exception("El importe de la reparaci贸n no puede informarse hasta que el producto sea devuelto");
 		}
 		if(reparacion.getEstado() != null) {
-			throw new Exception("El estado de la reparaci髇 no puede estar informada");
+			throw new Exception("El estado de la reparaci贸n no puede estar informada");
 		}
 	}
 
@@ -82,20 +83,20 @@ public class ReparacionesService extends GenericService<Reparacion> {
 	@Override
 	protected void validaElementoABorrar(Reparacion reparacion) throws Exception {
 		if(reparacion.getId() == null) {
-			throw new Exception("Debe indicarse el ID de la reparaci髇 a borrar");
+			throw new Exception("Debe indicarse el ID de la reparaci贸n a borrar");
 		}
 	}
 
 	@Override
 	protected void validaElementoAModificar(Reparacion reparacion) throws Exception {
 		if(reparacion.getId() == null) {
-			throw new Exception("El ID de la reparaci髇 debe estar informado");
+			throw new Exception("El ID de la reparaci贸n debe estar informado");
 		}
 		if(reparacion.getFechaReparacion() == null) {
-			throw new Exception("La fecha de la reparaci髇 debe estar informada");
+			throw new Exception("La fecha de la reparaci贸n debe estar informada");
 		}
 		if(reparacion.getVenta() == null || reparacion.getVenta().getId() == null) {
-			throw new Exception("No se ha informado la venta sobre la que se realiza la reparaci髇");
+			throw new Exception("No se ha informado la venta sobre la que se realiza la reparaci贸n");
 		}
 		if(reparacion.getProducto() == null || reparacion.getProducto().getId() == null) {
 			throw new Exception("No se ha informado el producto que se repara");
@@ -105,7 +106,7 @@ public class ReparacionesService extends GenericService<Reparacion> {
 		}
 		Venta venta = ventasService.getVentaById(reparacion.getVenta().getId());
 		if(venta == null) {
-			throw new Exception("La venta indicada para la reparaci髇 no existe");
+			throw new Exception("La venta indicada para la reparaci贸n no existe");
 		}
 		boolean ventaContainsProducto = false;
 		for(ArticuloVenta articulo : venta.getArticulosVenta()) {
@@ -124,7 +125,7 @@ public class ReparacionesService extends GenericService<Reparacion> {
 		cal.add(Calendar.MONTH, 6);
 		boolean warranty = cal.compareTo(reparacionCal) > 0;
 		if(reparacion.getImporte() == null && !warranty) {
-			throw new Exception("La fecha de venta es anterior a 6 meses, por lo que debe indicarse un importe de reparaci髇");
+			throw new Exception("La fecha de venta es anterior a 6 meses, por lo que debe indicarse un importe de reparaci贸n");
 		} else if(reparacion.getImporte() != null && warranty) {
 			reparacion.setImporte(new Double(0));
 		}
@@ -132,27 +133,27 @@ public class ReparacionesService extends GenericService<Reparacion> {
 			cal = Calendar.getInstance();
 			Calendar entregaCal = Calendar.getInstance();
 			if(cal.compareTo(entregaCal) > 0) {
-				throw new Exception("La fecha de entrega de la reparaci髇 no puede ser anterior a la fecha de la reparaci髇");
+				throw new Exception("La fecha de entrega de la reparaci贸n no puede ser anterior a la fecha de la reparaci贸n");
 			}
 		}
 		if(reparacion.getDescripcion() == null || reparacion.getDescripcion().trim().isEmpty()) {
 			throw new Exception("No se ha indicado el problema a reparar");
 		}
 		if(reparacion.getEmpleadoReparacion() == null || reparacion.getEmpleadoReparacion().getLogin() == null) {
-			throw new Exception("Debe indicarse un empleado asignado a la reparaci髇");
+			throw new Exception("Debe indicarse un empleado asignado a la reparaci贸n");
 		}
 		Empleado empleadoReparacion = empleadosService.getEmpleadoByLogin(reparacion.getEmpleadoReparacion().getLogin());
 		if(empleadoReparacion == null) {
-			throw new Exception("El empleado asignado a la reparaci髇 no existe");
+			throw new Exception("El empleado asignado a la reparacion no existe");
 		}
 		if(!CategoriaEmpleado.REPARACION.equals(reparacion.getEmpleadoReparacion().getCategoria())) {
-			throw new Exception("El empleado asignado a la reparaci髇 no es de la categor韆 adecuada");
+			throw new Exception("El empleado asignado a la reparaci贸n no es de la categor铆a adecuada");
 		}
 		if(reparacion.getEstado() == null) {
-			throw new Exception("Debe indicarse un estado para la reparaci髇");
+			throw new Exception("Debe indicarse un estado para la reparaci锟絥");
 		}
 		if(EstadoReparacion.PARADO_PIEZAS.equals(reparacion.getEstado()) && reparacion.getPiezas() == null) {
-			throw new Exception("Deben indicarse las piezas necesarias para la reparaci髇");
+			throw new Exception("Deben indicarse las piezas necesarias para la reparaci贸n");
 		}
 	}
 
@@ -190,7 +191,7 @@ public class ReparacionesService extends GenericService<Reparacion> {
 	}
 
 	/************************************
-	 * M閠odos propios de este servicio *
+	 * M茅todos propios de este servicio *
 	 ************************************/
 	public List<Reparacion> getReparacionesByVenta(Venta venta) {
 		List<Reparacion> reparaciones = new ArrayList<Reparacion>();
@@ -206,8 +207,7 @@ public class ReparacionesService extends GenericService<Reparacion> {
 		return reparaciones;
 	}
 	
-	public List<Reparacion> getReparacionesByEmpleado(String login) {
-		Empleado empleado = empleadosService.getEmpleadoByLogin(login);
+	public List<Reparacion> getReparacionesByEmpleado(Empleado empleado) {
 		if(empleado == null) {
 			return null;
 		}
@@ -231,7 +231,25 @@ public class ReparacionesService extends GenericService<Reparacion> {
 				try {
 					reparaciones.add((Reparacion)reparacion.clone());
 				} catch(Exception e) {
-					//No lo a馻do
+					//No lo a锟絘do
+				}
+			}
+		}
+		return reparaciones;
+	}
+	
+	public List<Reparacion> getReparacionesByCliente(Cliente cliente) {
+		if(cliente == null) {
+			return null;
+		}
+		List<Reparacion> reparaciones = new ArrayList<Reparacion>();
+		List<Venta> ventasCliente = this.ventasService.getVentasByCliente(cliente);
+		for(Reparacion reparacion : this.listado) {
+			if(ventasCliente.contains(reparacion.getVenta())) {
+				try {
+					reparaciones.add((Reparacion)reparacion.clone());
+				} catch(Exception e) {
+					//No lo a帽ado
 				}
 			}
 		}

@@ -47,10 +47,10 @@ public class DevolucionesService extends GenericService<Devolucion> {
 	@Override
 	protected void validaNuevoElemento(Devolucion devolucion) throws Exception {
 		if(devolucion.getId() != null) {
-			throw new Exception("El ID de la devoluci髇 no puede estar informado");
+			throw new Exception("El ID de la devoluci贸n no puede estar informado");
 		}
 		if(devolucion.getFecha() != null) {
-			throw new Exception("La fecha de la devolucion no puede estar informada");
+			throw new Exception("La fecha de la devoluci贸n no puede estar informada");
 		}
 	}
 
@@ -69,35 +69,35 @@ public class DevolucionesService extends GenericService<Devolucion> {
 	@Override
 	protected void validaElementoABorrar(Devolucion devolucion) throws Exception {
 		if(devolucion.getId() == null) {
-			throw new Exception("Debe indicarse el ID de la devoluci髇 a borrar");
+			throw new Exception("Debe indicarse el ID de la devoluci贸n a borrar");
 		}
 	}
 
 	@Override
 	protected void validaElementoAModificar(Devolucion devolucion) throws Exception {
 		if(devolucion.getId() == null) {
-			throw new Exception("El ID de la devoluci髇 debe estar informado");
+			throw new Exception("El ID de la devoluci贸n debe estar informado");
 		}
 		if(devolucion.getFecha() == null) {
-			throw new Exception("La fecha de la devoluci髇 debe estar informada");
+			throw new Exception("La fecha de la devoluci贸n debe estar informada");
 		}
 		if(devolucion.getVenta() == null || devolucion.getVenta().getId() == null) {
-			throw new Exception("No se ha informado la venta sobre la que se realiza la devoluci髇");
+			throw new Exception("No se ha informado la venta sobre la que se realiza la devoluci贸n");
 		}
 		if(devolucion.getArticulosDevolucion() == null || devolucion.getArticulosDevolucion().isEmpty()) {
 			throw new Exception("No se han informado los productos que se devuelven");
 		}
 		Venta venta = ventasService.getVentaById(devolucion.getVenta().getId());
 		if(venta == null) {
-			throw new Exception("La venta indicada para la devoluci髇 no existe");
+			throw new Exception("La venta indicada para la devoluci贸n no existe");
 		}
 		List<Long> articulosDevueltos = new ArrayList<Long>();
 		for(ArticuloVenta articuloDevolucion : devolucion.getArticulosDevolucion()) {
 			if(articuloDevolucion.getProducto() == null || articuloDevolucion.getProducto().getId() == null) {
-				throw new Exception("No se ha indicado el ID del producto de la devoluci髇");
+				throw new Exception("No se ha indicado el ID del producto de la devoluci贸n");
 			}
 			if(articulosDevueltos.contains(articuloDevolucion.getProducto().getId())) {
-				throw new Exception("Se ha indicado mas de una vez el mismo producto en la devoluci髇");
+				throw new Exception("Se ha indicado mas de una vez el mismo producto en la devoluci贸n");
 			}
 			if(articuloDevolucion.getCantidad() == null) {
 				throw new Exception("No se ha indicado la cantidad de productos que se devuelven");
@@ -110,7 +110,7 @@ public class DevolucionesService extends GenericService<Devolucion> {
 			Calendar fechaVenta = Calendar.getInstance();
 			fechaVenta.setTime(devolucion.getFecha());
 			if(fechaDevolucion.compareTo(fechaVenta) > 0) {
-				throw new Exception("La fecha de la venta no puede ser mayor de tres meses anterior a la devoluci髇");
+				throw new Exception("La fecha de la venta no puede ser mayor de tres meses anterior a la devoluci贸n");
 			}
 			for(ArticuloVenta articuloVenta : venta.getArticulosVenta()) {
 				if(articuloVenta.getProducto().getId().equals(articuloDevolucion.getProducto().getId())) {
@@ -128,13 +128,13 @@ public class DevolucionesService extends GenericService<Devolucion> {
 						}
 					}
 					if(cantidad < 0) {
-						throw new Exception("La cantidad de productos devueltos es superior al n鷐ero de los existentes en la venta");
+						throw new Exception("La cantidad de productos devueltos es superior al n煤mero de los existentes en la venta");
 					}
 					break;
 				}
 			}
 			if(ventaTieneProducto == false) {
-				throw new Exception("El producto indicado en la devoluci髇 no pertenece a la venta asociada");
+				throw new Exception("El producto indicado en la devoluci贸n no pertenece a la venta asociada");
 			}
 		}
 	}
@@ -191,7 +191,7 @@ public class DevolucionesService extends GenericService<Devolucion> {
 	}
 	
 	/************************************
-	 * M閠odos propios de este servicio *
+	 * M茅todos propios de este servicio *
 	 ************************************/
 	public List<Devolucion> getDevolucionesByVenta(Venta venta) {
 		List<Devolucion> devoluciones = new ArrayList<Devolucion>();

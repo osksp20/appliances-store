@@ -24,7 +24,7 @@ public class ProductosService extends GenericService<Producto> {
 	@Override
 	protected void validaNuevoElemento(Producto producto) throws Exception {
 		if(producto.getId() != null) {
-			throw new Exception("El ID del producto a añadir debe ser nulo");
+			throw new Exception("El ID del producto a aÃ±adir debe ser nulo");
 		}
 	}
 
@@ -79,7 +79,7 @@ public class ProductosService extends GenericService<Producto> {
 	}
 	
 	/************************************
-	 * Métodos propios de este servicio *
+	 * MÃ©todos propios de este servicio *
 	 ************************************/
 	public Producto getProductoById(Long id) {
 		for(Producto producto : listado) {

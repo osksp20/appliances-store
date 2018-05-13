@@ -37,7 +37,7 @@ public class FinanciacionesService extends GenericService<Financiacion> {
 	@Override
 	protected void validaNuevoElemento(Financiacion financiacion) throws Exception {
 		if(financiacion.getId() != null) {
-			throw new Exception("El ID de la financiacion no puede estar informado");
+			throw new Exception("El ID de la financiaci贸n no puede estar informado");
 		}
 	}
 
@@ -54,45 +54,45 @@ public class FinanciacionesService extends GenericService<Financiacion> {
 	@Override
 	protected void validaElementoABorrar(Financiacion financiacion) throws Exception {
 		if(financiacion.getId() == null) {
-			throw new Exception("No se ha informado el ID de la financiaci髇 a borrar");
+			throw new Exception("No se ha informado el ID de la financiaci贸n a borrar");
 		}
 	}
 
 	@Override
 	protected void validaElementoAModificar(Financiacion financiacion) throws Exception {
 		if(financiacion.getId() == null) {
-			throw new Exception("No se ha informado el ID de la financiacion a eliminar");
+			throw new Exception("No se ha informado el ID de la financiaci贸n a eliminar");
 		}
 		if(financiacion.getVenta() == null || financiacion.getVenta().getId() == null) {
-			throw new Exception("No se ha informado la venta sobre la que se realiza la financiaci髇");
+			throw new Exception("No se ha informado la venta sobre la que se realiza la financiaci贸n");
 		}
 		if(financiacion.getPlazos() == null) {
-			throw new Exception("No se han indicado los plazos de la financiaci髇");
+			throw new Exception("No se han indicado los plazos de la financiaci贸n");
 		}
 		if(financiacion.getPlazos() > 60) {
-			throw new Exception("El plazo m醲imo de financiaci髇 es de 60 meses");
+			throw new Exception("El plazo m谩ximo de financiaci贸n es de 60 meses");
 		}
 		Venta venta = ventasService.getVentaById(financiacion.getVenta().getId());
 		if(venta == null) {
-			throw new Exception("La venta indicada para la financiacion no existe");
+			throw new Exception("La venta indicada para la financiaci贸n no existe");
 		}
 		for(Financiacion financiacionExistente : this.listado) {
 			if(!financiacionExistente.equals(financiacion) && financiacionExistente.getVenta().equals(financiacion.getVenta())) {
-				throw new Exception("Ya existe una financiaci髇 para la venta indicada");
+				throw new Exception("Ya existe una financiaci贸n para la venta indicada");
 			}
 		}
 		//Comprobacion de negocio
 		if(venta.getCliente().getUltimaNomina() == null) {
-			throw new Exception("El cliente no dispone de n髆ina para comprobar la viabilidad de la financiaci髇");
+			throw new Exception("El cliente no dispone de n贸mina para comprobar la viabilidad de la financiaci贸n");
 		}
 		if(!listado.contains(financiacion)) {
-			//La estamos a馻diendo
+			//La estamos a锟絘diendo
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.MONTH, -1);
 			Calendar nominaCal = Calendar.getInstance();
 			nominaCal.setTime(venta.getCliente().getUltimaNomina().getFecha());
 			if(cal.compareTo(nominaCal) > 0) {
-				throw new Exception("La fecha de la 鷏tima n髆ina del cliente no puede ser anterior a un mes de la fecha actual");
+				throw new Exception("La fecha de la 煤ltima n贸mina del cliente no puede ser anterior a un mes de la fecha actual");
 			}
 		}
 		Double importeVenta = ventasService.getImporteVenta(venta.getId());
@@ -100,7 +100,7 @@ public class FinanciacionesService extends GenericService<Financiacion> {
 		Double cuotaMax = new Double(venta.getCliente().getUltimaNomina().getCantidad());
 		cuotaMax = cuotaMax * 0.15;
 		if(cuota > cuotaMax) {
-			throw new Exception("La cuota de la financiacion excede del m醲imo permitido para este cliente");
+			throw new Exception("La cuota de la financiaci贸n excede del m谩ximo permitido para este cliente");
 		}
 	}
 
@@ -122,7 +122,7 @@ public class FinanciacionesService extends GenericService<Financiacion> {
 	}
 	
 	/************************************
-	 * M閠odos propios de este servicio *
+	 * M茅todos propios de este servicio *
 	 ************************************/
 	public Financiacion getFinanciacionByVenta(Venta venta) {
 		for(Financiacion financiacion : this.listado) {

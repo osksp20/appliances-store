@@ -70,7 +70,7 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 	@SuppressWarnings("unchecked")
 	public T crear(T elemento) throws Exception {
 		if(elemento == null) {
-			throw new Exception("El elemento a aÒadir es nulo");
+			throw new Exception("El elemento a a√±adir es nulo");
 		}
 		validaNuevoElemento(elemento);
 		//Primero hago clone para que el elemento y los asociados guardados en el servicio
@@ -87,11 +87,11 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 			throw e;
 		}
 		//Al preparar se tienen que haber insertado elementos desacoplados de las listas de los servicios
-		//asÌ cuando se modifique el elemento que se devuelve, no se modificar· el almacenado en el servicio
+		//as√≠ cuando se modifique el elemento que se devuelve, no se modificar√° el almacenado en el servicio
 		listado.add(nuevoElemento);
 		//Hago clone en el return para que el objeto que vuelve tenga todos los datos recuperados
 		//pero desacoplados de los que existen en el servicio
-		//Esto es lo que se consigue con una capa Modelo - DAO o cargando el mÈtodo de creaciÛn, pero asi ahorro tiempo
+		//Esto es lo que se consigue con una capa Modelo - DAO o cargando el m√©todo de creaci√≥n, pero asi ahorro tiempo
 		return (T)nuevoElemento.clone();
 	}
 	
@@ -156,7 +156,7 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 	
 	/**
 	 * Establece los valores necesarios para un nuevo elemento (p.e. el ID o la fecha
-	 * de creaciÛn)
+	 * de creaci√≥n)
 	 * 
 	 * @param elemento
 	 */

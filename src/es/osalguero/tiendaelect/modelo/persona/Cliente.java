@@ -1,5 +1,7 @@
 package es.osalguero.tiendaelect.modelo.persona;
 
+import java.util.Date;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
@@ -18,9 +20,11 @@ public class Cliente extends Persona {
 
 	private String telefono;
 	private String direccion;
+	private Date fechaNacimiento;
 	@XmlID
 	private String dni;
 	private Nomina ultimaNomina;
+	private String email;
 	
 	public String getTelefono() {
 		return telefono;
@@ -45,6 +49,18 @@ public class Cliente extends Persona {
 	}
 	public void setUltimaNomina(Nomina ultimaNomina) {
 		this.ultimaNomina = ultimaNomina;
+	}
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(Date fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	@Override
 	public boolean equals(Object object) {

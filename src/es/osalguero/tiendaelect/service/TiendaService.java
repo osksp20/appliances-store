@@ -20,7 +20,8 @@ import es.osalguero.tiendaelect.modelo.producto.elect.ElectFotografiaDigital;
 public class TiendaService {
 
 	private Logger logger = Logger.getLogger(this.getClass().getName());
-	
+
+	private String ficheroConfiguracion;
 	private PropiedadesService propiedadesService;
 	private ProductosService productosService;
 	private ClientesService clientesService;
@@ -29,8 +30,75 @@ public class TiendaService {
 	private DevolucionesService devolucionesService;
 	private ReparacionesService reparacionesService;
 	private FinanciacionesService financiacionesService;
-	
+
 	public TiendaService(String ficheroConfiguracion) throws Exception {
+		this.ficheroConfiguracion = ficheroConfiguracion;
+	}
+
+	public void guardar() throws Exception {
+		this.productosService.guardar();
+		this.clientesService.guardar();
+		this.empleadosService.guardar();
+		this.ventasService.guardar();
+		this.devolucionesService.guardar();
+		this.financiacionesService.guardar();
+		this.reparacionesService.guardar();
+		this.propiedadesService.guardar();
+	}
+
+	public FichaCliente getFichaCliente(String clienteDni) {
+		Cliente cliente = clientesService.getClienteByDni(clienteDni);
+		if(cliente == null) {
+			return null;
+		}
+		FichaCliente fichaCliente = new FichaCliente();
+		fichaCliente.setCliente(cliente);
+		List<Venta> ventasCliente = ventasService.getVentasByCliente(cliente);
+		if(!ventasCliente.isEmpty()) {
+			fichaCliente.setVentas(new ArrayList<FichaVenta>());
+		}
+		for(Venta venta : ventasCliente) {
+			FichaVenta fichaVenta = new FichaVenta();
+			fichaVenta.setVenta(venta);
+			fichaVenta.setDevoluciones(devolucionesService.getDevolucionesByVenta(venta));
+			fichaVenta.setReparaciones(reparacionesService.getReparacionesByVenta(venta));
+			fichaVenta.setFinanciacion(financiacionesService.getFinanciacionByVenta(venta));
+			fichaCliente.getVentas().add(fichaVenta);
+		}
+		return fichaCliente;	
+	}
+
+	public Map<SeccionTienda, Integer> getInventarioTienda() {
+		return productosService.getInventarioBySeccion();
+	}
+
+	public List<String> getPiezasReparaciones() {
+		List<String> piezas = new ArrayList<String>();
+		for(Reparacion reparacion : reparacionesService.getReparacionesByEstado(EstadoReparacion.PARADO_PIEZAS)) {
+			piezas.add(reparacion.getPiezas());
+		}
+		return piezas;
+	}
+
+	public Map<Cliente, List<Reparacion>> getReparacionesPendientesConfirmar() {
+		Map<Cliente, List<Reparacion>> reparacionesCliente = new HashMap<Cliente, List<Reparacion>>();
+		for(Reparacion reparacion : reparacionesService.getReparacionesByEstado(EstadoReparacion.PTE_CONFIRMAR_CLIENTE)) {
+			if(!reparacionesCliente.containsKey(reparacion.getVenta().getCliente())) {
+				reparacionesCliente.put(clientesService.getClienteByDni(reparacion.getVenta().getCliente().getDni()), 
+						new ArrayList<Reparacion>());
+			}
+			reparacionesCliente.get(reparacion.getVenta().getCliente()).add(reparacion);
+		}
+		return reparacionesCliente;
+	}
+
+	public void cargarEmpleados() throws Exception {
+		this.propiedadesService = new PropiedadesService(ficheroConfiguracion);
+		this.empleadosService = new EmpleadosService(
+				this.propiedadesService.getValor(Propiedades.FICHERO_EMPLEADOS));
+	}
+	
+	public void cargarDatos() throws Exception {
 		this.propiedadesService = new PropiedadesService(ficheroConfiguracion);
 		this.productosService = new ProductosService(
 				this.propiedadesService.getValor(Propiedades.FICHERO_PRODUCTOS));
@@ -50,7 +118,7 @@ public class TiendaService {
 		this.reparacionesService = new ReparacionesService(
 				this.propiedadesService.getValor(Propiedades.FICHERO_REPARACIONES),
 				ventasService, productosService, empleadosService);
-		
+
 		if(clientesService.listado().isEmpty()) {
 			Cliente cliente = new Cliente();
 			cliente.setNombre("Prueba");
@@ -92,60 +160,36 @@ public class TiendaService {
 		logger.info("Se han cargado "+this.reparacionesService.listado().size()+" reparaciones");
 		logger.info("Se han cargado "+this.financiacionesService.listado().size()+" financiaciones");
 	}
-	
-	public void guardar() throws Exception {
-		this.productosService.guardar();
-		this.clientesService.guardar();
-		this.empleadosService.guardar();
-		this.ventasService.guardar();
-		this.devolucionesService.guardar();
-		this.financiacionesService.guardar();
-		this.reparacionesService.guardar();
+
+	public EmpleadosService getEmpleadosService() {
+		return this.empleadosService;
 	}
 	
-	public FichaCliente getFichaCliente(String clienteDni) {
-		Cliente cliente = clientesService.getClienteByDni(clienteDni);
-		if(cliente == null) {
-			return null;
-		}
-		FichaCliente fichaCliente = new FichaCliente();
-		fichaCliente.setCliente(cliente);
-		List<Venta> ventasCliente = ventasService.getVentasByCliente(cliente);
-		if(!ventasCliente.isEmpty()) {
-			fichaCliente.setVentas(new ArrayList<FichaVenta>());
-		}
-		for(Venta venta : ventasCliente) {
-			FichaVenta fichaVenta = new FichaVenta();
-			fichaVenta.setVenta(venta);
-			fichaVenta.setDevoluciones(devolucionesService.getDevolucionesByVenta(venta));
-			fichaVenta.setReparaciones(reparacionesService.getReparacionesByVenta(venta));
-			fichaVenta.setFinanciacion(financiacionesService.getFinanciacionByVenta(venta));
-			fichaCliente.getVentas().add(fichaVenta);
-		}
-		return fichaCliente;	
+	public ClientesService getClientesService() {
+		return this.clientesService;
 	}
 	
-	public Map<SeccionTienda, Integer> getInventarioTienda() {
-		return productosService.getInventarioBySeccion();
+	public ProductosService getProductosService() {
+		return this.productosService;
 	}
 	
-	public List<String> getPiezasReparaciones() {
-		List<String> piezas = new ArrayList<String>();
-		for(Reparacion reparacion : reparacionesService.getReparacionesByEstado(EstadoReparacion.PARADO_PIEZAS)) {
-			piezas.add(reparacion.getPiezas());
-		}
-		return piezas;
+	public VentasService getVentasService() {
+		return this.ventasService;
 	}
 	
-	public Map<Cliente, List<Reparacion>> getReparacionesPendientesConfirmar() {
-		Map<Cliente, List<Reparacion>> reparacionesCliente = new HashMap<Cliente, List<Reparacion>>();
-		for(Reparacion reparacion : reparacionesService.getReparacionesByEstado(EstadoReparacion.PTE_CONFIRMAR_CLIENTE)) {
-			if(!reparacionesCliente.containsKey(reparacion.getVenta().getCliente())) {
-				reparacionesCliente.put(clientesService.getClienteByDni(reparacion.getVenta().getCliente().getDni()), 
-						new ArrayList<Reparacion>());
-			}
-			reparacionesCliente.get(reparacion.getVenta().getCliente()).add(reparacion);
-		}
-		return reparacionesCliente;
+	public DevolucionesService getDevolucionesService() {
+		return this.devolucionesService;
+	}
+	
+	public FinanciacionesService getFinanciacionesService() {
+		return this.financiacionesService;
+	}
+	
+	public ReparacionesService getReparacionesService() {
+		return this.reparacionesService;
+	}
+	
+	public PropiedadesService getPropieadesService() {
+		return this.propiedadesService;
 	}
 }

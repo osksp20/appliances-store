@@ -26,10 +26,10 @@ public class TiendaElectrodomesticosApp {
 	private void initTienda() {
 		try {
 			this.tiendaService = new TiendaService(ficheroConfiguracion);
-			TiendaElectrodomesticosGUIController tiendaController =
-					new TiendaElectrodomesticosGUIController(tiendaService);
+			TiendaElectrodomesticosGUIController.createTiendaGUI(tiendaService);
+			TiendaElectrodomesticosGUIController.getInstance().showStore();
 		} catch(Exception e) {
-			logger.log(Level.SEVERE, "Se ha producido un error inesperado y se ha cerrado la aplicación", e);
+			logger.log(Level.SEVERE, "Se ha producido un error inesperado y se ha cerrado la aplicaciÃ³n", e);
 		}
 	}
 	
