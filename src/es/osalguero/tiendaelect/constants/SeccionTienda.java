@@ -9,21 +9,40 @@ import javax.xml.bind.annotation.XmlType;
 public enum SeccionTienda {
 
 	@XmlEnumValue("GAMABLANCA")
-	GAMA_BLANCA, 
+	GAMA_BLANCA("Gama Blanca"), 
 	@XmlEnumValue("IMAGEN")
-	IMAGEN, 
+	IMAGEN("Imagen"), 
 	@XmlEnumValue("SONIDO")
-	SONIDO, 
+	SONIDO("Sonido"), 
 	@XmlEnumValue("FOTO")
-	FOTO,
+	FOTO("Fotografía"),
 	@XmlEnumValue("VIDEO")
-	VIDEO,
+	VIDEO("Vídeo"),
 	@XmlEnumValue("INFORMATICA")
-	INFORMATICA,
+	INFORMATICA("Informática"),
 	@XmlEnumValue("PAE")
-	PAE,
+	PAE("PAE"),
 	@XmlEnumValue("ACCESORIOS")
-	ACCESORIOS,
+	ACCESORIOS("Accesorios"),
 	@XmlEnumValue("TELEFONIA")
-	TELEFONIA;
+	TELEFONIA("Telefonía");
+	
+	private String nombre;
+	
+    private SeccionTienda(final String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public String getNombre() {
+        return this.nombre;
+    }
+	
+	public static SeccionTienda getByNombre(final String nombre) {
+        for (SeccionTienda seccion : SeccionTienda.values()) {
+            if (seccion.getNombre().equals(nombre)) {
+                return seccion;
+            }
+        }
+        return null;
+    }
 }

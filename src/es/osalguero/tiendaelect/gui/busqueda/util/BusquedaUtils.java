@@ -1,4 +1,4 @@
-package es.osalguero.tiendaelect.gui.view.busqueda.util;
+package es.osalguero.tiendaelect.gui.busqueda.util;
 
 public class BusquedaUtils
 {

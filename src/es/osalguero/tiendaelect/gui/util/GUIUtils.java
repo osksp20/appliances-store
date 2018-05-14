@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -21,6 +22,7 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
 import es.osalguero.tiendaelect.constants.Provincias;
+import es.osalguero.tiendaelect.constants.SeccionTienda;
 
 public class GUIUtils
 {   
@@ -54,6 +56,34 @@ public class GUIUtils
         return booleanComboBox;
     }
 
+	@SuppressWarnings("unchecked")
+	public static JComboBox<SeccionTienda> getSeccionTiendaComboBox(final boolean firstNull) {
+		final JComboBox<SeccionTienda> seccionTiendaComboBox = new JComboBox<SeccionTienda>(SeccionTienda.values());
+		seccionTiendaComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = -6099589429272293097L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+			
+			@SuppressWarnings("rawtypes")
+			@Override
+			public Component getListCellRendererComponent(final JList list, Object value, final int index, final boolean isSelected, final boolean cellHasFocus) {
+				if(value != null) {
+					value = ((SeccionTienda)value).getNombre();
+				}
+				return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			}
+		});
+		if(firstNull) {
+			seccionTiendaComboBox.insertItemAt(null, 0);
+			seccionTiendaComboBox.setSelectedIndex(-1);
+		}
+		return seccionTiendaComboBox;
+	}
+	
     @SuppressWarnings("unchecked")
 	public static JComboBox<CategoriaEmpleado> getCategoriaEmpleadoComboBox(final boolean firstNull) {
         final JComboBox<CategoriaEmpleado> categoriaEmpleadoComboBox = new JComboBox<CategoriaEmpleado>(CategoriaEmpleado.values());
@@ -108,6 +138,25 @@ public class GUIUtils
             provinciaComboBox.setSelectedIndex(-1);
         }
         return provinciaComboBox;
+    }
+    
+    @SuppressWarnings("unchecked")
+	public static JComboBox<String> getStringComboBox(final List<String> stringValues, final boolean firstNull) {
+    	final JComboBox<String> stringComboBox = new JComboBox<String>(stringValues != null ? stringValues.toArray(new String[stringValues.size()]) : new String[0]);
+    	stringComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = 1L;
+
+			@Override
+    		public void paint(final Graphics g) {
+    			this.setForeground(Color.BLACK);
+    			super.paint(g);
+    		}
+    	});
+    	if(firstNull) {
+    		stringComboBox.insertItemAt(null, 0);
+    		stringComboBox.setSelectedIndex(-1);
+    	}
+    	return stringComboBox;
     }
     
     public static JButton createOptionButton(final String buttonText, final String iconFilename) {

@@ -9,6 +9,7 @@ import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaExceptionGUIContr
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaLoginGUIController;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoClientesGUIController;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoEmpleadosGUIController;
+import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoProductosGUIController;
 import es.osalguero.tiendaelect.gui.controller.principal.VistaPrincipalComercialGUIController;
 import es.osalguero.tiendaelect.gui.view.enumeration.TipoEdicionEnum;
 import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
@@ -61,6 +62,10 @@ public class ControllerFactory {
             }
             case VISTA_EDICION_CLIENTE: {
             	controller = new VistaEdicionClienteGUIController((Cliente)elementoEdicion, tipoEdicion);
+            	break;
+            }
+            case VISTA_LISTADO_PRODUCTOS: {
+            	controller = new VistaListadoProductosGUIController(elementoEdicion);
             	break;
             }
             default: {

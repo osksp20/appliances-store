@@ -1,4 +1,4 @@
-package es.osalguero.tiendaelect.gui.view.busqueda;
+package es.osalguero.tiendaelect.gui.busqueda;
 
 import java.io.*;
 

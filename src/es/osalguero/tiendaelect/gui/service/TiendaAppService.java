@@ -1,14 +1,19 @@
 package es.osalguero.tiendaelect.gui.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 
+import es.osalguero.tiendaelect.constants.SeccionTienda;
 import es.osalguero.tiendaelect.modelo.Propiedades;
 import es.osalguero.tiendaelect.modelo.negocio.Financiacion;
 import es.osalguero.tiendaelect.modelo.negocio.Reparacion;
 import es.osalguero.tiendaelect.modelo.negocio.Venta;
 import es.osalguero.tiendaelect.modelo.persona.Cliente;
 import es.osalguero.tiendaelect.modelo.persona.Empleado;
+import es.osalguero.tiendaelect.modelo.producto.Producto;
+import es.osalguero.tiendaelect.modelo.producto.elect.ElectGamaBlanca;
 import es.osalguero.tiendaelect.service.TiendaService;
 
 public class TiendaAppService {
@@ -148,5 +153,46 @@ public class TiendaAppService {
 	 
 	 public List<Reparacion> getReparacionesByCliente(Cliente cliente) {
 		 return this.tiendaService.getReparacionesService().getReparacionesByCliente(cliente);
+	 }
+	 
+	 public List<String> getColoresElectrodomestico() {
+		 List<String> coloresElectrodomestico = new ArrayList<String>();
+		 for(Producto electrodomestico : this.tiendaService.getProductosService().getProductosBySeccion(SeccionTienda.GAMA_BLANCA)) {
+			 if(!coloresElectrodomestico.contains(((ElectGamaBlanca)electrodomestico).getColor())) {
+				 coloresElectrodomestico.add(((ElectGamaBlanca)electrodomestico).getColor());
+			 }
+		 }
+		 coloresElectrodomestico.sort(new Comparator<String>() {
+			@Override
+			public int compare(String o1, String o2) {
+				return o1.compareTo(o2);
+			}
+			 
+		 });
+		 return coloresElectrodomestico;
+	 }
+	 
+	 public List<String> getTiposProducto(SeccionTienda seccion) {
+		 List<String> tiposElectrodomestico = new ArrayList<String>();
+		 for(Producto producto : this.tiendaService.getProductosService().getProductosBySeccion(seccion)) {
+			 if(!tiposElectrodomestico.contains(producto.getTipo())) {
+				 tiposElectrodomestico.add(producto.getTipo());
+			 }
+		 }
+		 tiposElectrodomestico.sort(new Comparator<String>() {
+			 @Override
+			 public int compare(String o1, String o2) {
+				 return o1.compareTo(o2);
+			 }
+		 });
+		 return tiposElectrodomestico;
+	 }
+	 
+	 public List<Producto> getProductosTienda() {
+		 return this.tiendaService.getProductosService().listado();
+	 }
+	 
+	 public void deleteProducto(Producto producto) throws Exception {
+		 this.tiendaService.getProductosService().borrar(producto);
 	 }
 }

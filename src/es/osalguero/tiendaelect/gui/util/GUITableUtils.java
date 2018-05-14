@@ -34,7 +34,7 @@ public class GUITableUtils
     private static final String[] reparacionesHeader;
     
     static {
-    	productosHeader = new String[] {};
+    	productosHeader = new String[] {"ID", "Sección", "Tipo", "Marca", "Modelo", "Precio", "Stock"};
         clientesHeader = new String[] { "DNI", "Nombre", "1er apellido", "2º apellido", "Fec. nac.", "Dirección", "Teléfono", "Email", "Nº compras", "Última nómina" };
         empleadosHeader = new String[] { "Login", "Tipo", "Administrador", "Nombre", "Apellido1", "Apellido2" };
         configuracionPropiedadesHeader = new String[] { "Nombre variable configuración", "Valor variable" };
@@ -266,12 +266,12 @@ public class GUITableUtils
             @Override
             public Class<?> getColumnClass(final int column) {
                 switch (column) {
-                    case 7: {
+                	case 0:
+                	case 6: {
                         return Integer.class;
                     }
-                    case 3: {
-                        return Date.class;
-                    }
+                	case 5:
+                		return Double.class;
                     default: {
                         return String.class;
                     }
@@ -289,13 +289,9 @@ public class GUITableUtils
             @Override
             public TableCellRenderer getCellRenderer(final int row, final int column) {
                 switch (column) {
-                    case 3:
-                    case 8: {
-                        return this.dateCellRenderer;
-                    }
-                    case 7:
-                    case 10:
-                    case 11: {
+                	case 0:
+                	case 5:
+                	case 6: {
                         return this.rightRenderer;
                     }
                     default: {
@@ -374,8 +370,8 @@ public class GUITableUtils
     
     public static Object[] getDataFromElement(final Producto producto) {
         final Object[] productoData = {
-        		producto.getId(), producto.getMarca(), producto.getModelo(), producto.getSeccionTienda(),
-        		producto.getTipo(), producto.getPrecio(), producto.getCantidad()};
+        		producto.getId(), producto.getSeccionTienda().getNombre(), producto.getTipo(), producto.getMarca(), producto.getModelo(), 
+        		producto.getPrecio(), producto.getCantidad()};
         return productoData;
     }
     

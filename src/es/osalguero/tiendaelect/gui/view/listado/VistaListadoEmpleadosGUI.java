@@ -11,11 +11,11 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
+import es.osalguero.tiendaelect.gui.busqueda.BusquedaEmpleado;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoEmpleadosGUIController;
 import es.osalguero.tiendaelect.gui.exception.FilterFormatException;
 import es.osalguero.tiendaelect.gui.util.GUITableUtils;
 import es.osalguero.tiendaelect.gui.util.GUIUtils;
-import es.osalguero.tiendaelect.gui.view.busqueda.BusquedaEmpleado;
 import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
 import es.osalguero.tiendaelect.modelo.persona.Empleado;

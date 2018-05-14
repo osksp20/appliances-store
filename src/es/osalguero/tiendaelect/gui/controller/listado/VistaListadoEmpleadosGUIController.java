@@ -3,9 +3,9 @@ package es.osalguero.tiendaelect.gui.controller.listado;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.osalguero.tiendaelect.gui.busqueda.BusquedaEmpleado;
+import es.osalguero.tiendaelect.gui.busqueda.util.BusquedaUtils;
 import es.osalguero.tiendaelect.gui.controller.TiendaElectrodomesticosGUIController;
-import es.osalguero.tiendaelect.gui.view.busqueda.BusquedaEmpleado;
-import es.osalguero.tiendaelect.gui.view.busqueda.util.BusquedaUtils;
 import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
 import es.osalguero.tiendaelect.gui.view.listado.VistaListadoEmpleadosGUI;
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;

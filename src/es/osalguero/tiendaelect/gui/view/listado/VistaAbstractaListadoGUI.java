@@ -24,11 +24,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 
+import es.osalguero.tiendaelect.gui.busqueda.ModeloBusqueda;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaAbstractaListadoGUIController;
 import es.osalguero.tiendaelect.gui.exception.FilterFormatException;
 import es.osalguero.tiendaelect.gui.util.GUIUtils;
 import es.osalguero.tiendaelect.gui.view.VistaAbstractaGUI;
-import es.osalguero.tiendaelect.gui.view.busqueda.ModeloBusqueda;
 import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
 
