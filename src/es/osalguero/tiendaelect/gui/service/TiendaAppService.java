@@ -194,5 +194,16 @@ public class TiendaAppService {
 	 
 	 public void deleteProducto(Producto producto) throws Exception {
 		 this.tiendaService.getProductosService().borrar(producto);
+		 this.cambiosSinGuardar = true;
+	 }
+	 
+	 public void addProducto(Producto producto) throws Exception {
+		 this.tiendaService.getProductosService().crear(producto);
+		 this.cambiosSinGuardar = true;
+	 }
+	 
+	 public void modificarProducto(Producto producto) throws Exception {
+		 this.tiendaService.getProductosService().modificar(producto);
+		 this.cambiosSinGuardar = true;
 	 }
 }

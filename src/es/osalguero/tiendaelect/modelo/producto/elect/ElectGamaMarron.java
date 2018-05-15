@@ -1,10 +1,10 @@
 package es.osalguero.tiendaelect.modelo.producto.elect;
 
-import java.util.Map;
-
 import javax.xml.bind.annotation.XmlSeeAlso;
 
-import es.osalguero.tiendaelect.constants.TipoConexion;
+import es.osalguero.tiendaelect.constants.TipoAlimentacion;
+import es.osalguero.tiendaelect.constants.TipoAlmacenamiento;
+import es.osalguero.tiendaelect.constants.TipoPantalla;
 
 /**
  * Modela los electrodomesticos de consumo, identificados generalmente
@@ -14,26 +14,53 @@ import es.osalguero.tiendaelect.constants.TipoConexion;
  * @author o.salguero.palacios
  *
  */
-@XmlSeeAlso({ElectFotografiaDigital.class, ElectFotografia.class, ElectImagen.class,
-	ElectSonido.class, ElectInformatica.class, ElectSonido.class, ElectVideo.class})
+@XmlSeeAlso({ElectFotografiaDigital.class, ElectImagen.class,
+	ElectSonido.class, ElectInformatica.class, ElectVideo.class})
 public abstract class ElectGamaMarron extends Electrodomestico {
 
-	private Map<TipoConexion, Integer> entradas;
-	private Map<TipoConexion, Integer> salidas;
-
-	public Map<TipoConexion, Integer> getEntradas() {
-		return entradas;
+	private Integer capacidad;
+	private TipoAlmacenamiento tipoAlmacenamiento;
+	private TipoPantalla tipoPantalla;
+	private Integer tamanyoPantalla;
+	private TipoAlimentacion tipoAlimentacion;
+	
+	public Integer getCapacidad() {
+		return capacidad;
 	}
 	
-	public void setEntradas(Map<TipoConexion, Integer> entradas) {
-		this.entradas = entradas;
-	}
-
-	public Map<TipoConexion, Integer> getSalidas() {
-		return salidas;
+	public void setCapacidad(Integer capacidad) {
+		this.capacidad = capacidad;
 	}
 	
-	public void setSalidas(Map<TipoConexion, Integer> salidas) {
-		this.salidas = salidas;
+	public TipoAlmacenamiento getTipoAlmacenamiento() {
+		return this.tipoAlmacenamiento;
+	}
+	
+	public void setTipoAlmacenamiento(TipoAlmacenamiento tipoAlmacenamiento) {
+		this.tipoAlmacenamiento = tipoAlmacenamiento;
+	}
+	
+	public TipoPantalla getTipoPantalla() {
+		return this.tipoPantalla;
+	}
+	
+	public void setTipoPantalla(TipoPantalla tipoPantalla) {
+		this.tipoPantalla = tipoPantalla;
+	}
+	
+	public TipoAlimentacion getTipoAlimentacion() {
+		return this.tipoAlimentacion;
+	}
+	
+	public void setTipoAlimentacion(TipoAlimentacion tipoAlimentacion) {
+		this.tipoAlimentacion = tipoAlimentacion;
+	}
+	
+	public Integer getTamanyoPantalla() {
+		return this.tamanyoPantalla;
+	}
+	
+	public void setTamanyoPantalla(Integer tamanyoPantalla) {
+		this.tamanyoPantalla = tamanyoPantalla;
 	}
 }

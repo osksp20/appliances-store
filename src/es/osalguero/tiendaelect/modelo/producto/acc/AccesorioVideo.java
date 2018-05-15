@@ -7,7 +7,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import es.osalguero.tiendaelect.constants.SeccionTienda;
 
 @XmlRootElement(namespace="http://es.osalguero.elect/TiendaElectrodomesticos", name="accVideo")
-@XmlAccessorType(XmlAccessType.FIELD) class AccesorioVideo extends Accesorio {
+@XmlAccessorType(XmlAccessType.FIELD)
+public class AccesorioVideo extends Accesorio {
 
 	@Override
 	public SeccionTienda getSeccionAccesorio() {

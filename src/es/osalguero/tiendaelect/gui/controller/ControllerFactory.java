@@ -3,6 +3,7 @@ package es.osalguero.tiendaelect.gui.controller;
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
 import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionClienteGUIController;
 import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionEmpleadoGUIController;
+import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionProductoGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaCargaDatosGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaConfiguracionPropiedadesGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaExceptionGUIController;
@@ -16,6 +17,7 @@ import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
 import es.osalguero.tiendaelect.modelo.persona.Cliente;
 import es.osalguero.tiendaelect.modelo.persona.Empleado;
+import es.osalguero.tiendaelect.modelo.producto.Producto;
 
 public class ControllerFactory {
 
@@ -66,6 +68,10 @@ public class ControllerFactory {
             }
             case VISTA_LISTADO_PRODUCTOS: {
             	controller = new VistaListadoProductosGUIController(elementoEdicion);
+            	break;
+            }
+            case VISTA_EDICION_PRODUCTO: {
+            	controller = new VistaEdicionProductoGUIController((Producto)elementoEdicion, tipoEdicion);
             	break;
             }
             default: {

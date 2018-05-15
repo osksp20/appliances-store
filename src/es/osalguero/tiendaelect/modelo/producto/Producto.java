@@ -1,7 +1,5 @@
 package es.osalguero.tiendaelect.modelo.producto;
 
-import java.util.Map;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
@@ -20,7 +18,7 @@ public abstract class Producto extends ElementoTiendaGenerico implements Product
 	private String modelo;
 	private String tipo;
 	private Float precio;
-	private Map<String, String> caracteristicas;
+	private String caracteristicas;
 	private int cantidad;
 	
 	@XmlID
@@ -68,11 +66,11 @@ public abstract class Producto extends ElementoTiendaGenerico implements Product
 		this.precio = precio;
 	}
 
-	public Map<String, String> getCaracteristicas() {
+	public String getCaracteristicas() {
 		return caracteristicas;
 	}
 	
-	public void setCaracteristicas(Map<String, String> caracteristicas) {
+	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
 	}
 	

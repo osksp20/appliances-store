@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
@@ -23,9 +24,69 @@ import javax.swing.plaf.basic.BasicComboBoxRenderer;
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
 import es.osalguero.tiendaelect.constants.Provincias;
 import es.osalguero.tiendaelect.constants.SeccionTienda;
+import es.osalguero.tiendaelect.constants.TipoAlimentacion;
+import es.osalguero.tiendaelect.constants.TipoAlmacenamiento;
+import es.osalguero.tiendaelect.constants.TipoPantalla;
 
 public class GUIUtils
 {   
+	@SuppressWarnings("unchecked")
+	public static JComboBox<TipoAlmacenamiento> getTipoAlmacenamientoComboBox(final boolean firstNull) {
+		final JComboBox<TipoAlmacenamiento> tipoAlmacenamientoComboBox = new JComboBox<TipoAlmacenamiento>();
+		tipoAlmacenamientoComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = 45692578919059504L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+		});
+		if(firstNull) {
+			tipoAlmacenamientoComboBox.insertItemAt(null, 0);
+			tipoAlmacenamientoComboBox.setSelectedIndex(-1);
+		}
+		return tipoAlmacenamientoComboBox;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JComboBox<TipoAlimentacion> getTipoAlimentacionComboBox(final boolean firstNull) {
+		final JComboBox<TipoAlimentacion> tipoAlimentacionComboBox = new JComboBox<TipoAlimentacion>();
+		tipoAlimentacionComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = 45692578919059504L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+		});
+		if(firstNull) {
+			tipoAlimentacionComboBox.insertItemAt(null, 0);
+			tipoAlimentacionComboBox.setSelectedIndex(-1);
+		}
+		return tipoAlimentacionComboBox;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JComboBox<TipoPantalla> getTipoPantallaComboBox(final boolean firstNull) {
+		final JComboBox<TipoPantalla> tipoPantallaComboBox = new JComboBox<TipoPantalla>();
+		tipoPantallaComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = 45692578919059504L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+		});
+		if(firstNull) {
+			tipoPantallaComboBox.insertItemAt(null, 0);
+			tipoPantallaComboBox.setSelectedIndex(-1);
+		}
+		return tipoPantallaComboBox;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static JComboBox<Boolean> getBooleanComboBox(final boolean firstNull) {
         final JComboBox<Boolean> booleanComboBox = new JComboBox<Boolean>();
@@ -56,6 +117,39 @@ public class GUIUtils
         return booleanComboBox;
     }
 
+	@SuppressWarnings("unchecked")
+	public static JComboBox<SeccionTienda> getSeccionAccesorioComboBox(final boolean firstNull) {
+		List<SeccionTienda> seccionTiendaValues = new ArrayList<SeccionTienda>();
+		for(SeccionTienda seccionTiendaValue : SeccionTienda.values()) {
+			if(!SeccionTienda.ACCESORIOS.equals(seccionTiendaValue)) {
+				seccionTiendaValues.add(seccionTiendaValue);
+			}
+		}
+		final JComboBox<SeccionTienda> seccionAccesorioComboBox = new JComboBox<SeccionTienda>(seccionTiendaValues.toArray(new SeccionTienda[seccionTiendaValues.size()]));
+		seccionAccesorioComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = -3253318314306600291L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+			
+			@Override
+			public Component getListCellRendererComponent(final JList list, Object value, final int index, final boolean isSelected, final boolean cellHasFocus) {
+				if(value != null) {
+					value = ((SeccionTienda)value).getNombre();
+				}
+				return super.getListCellRendererComponent(list,  value, index, isSelected, cellHasFocus);
+			}
+		});
+		if(firstNull) {
+			seccionAccesorioComboBox.insertItemAt(null, 0);
+			seccionAccesorioComboBox.setSelectedItem(-1);
+		}
+		return seccionAccesorioComboBox;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static JComboBox<SeccionTienda> getSeccionTiendaComboBox(final boolean firstNull) {
 		final JComboBox<SeccionTienda> seccionTiendaComboBox = new JComboBox<SeccionTienda>(SeccionTienda.values());
