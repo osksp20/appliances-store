@@ -31,10 +31,11 @@ public abstract class VistaAbstractaEdicionGUIController<T extends VistaAbstract
         this.vista = this.initVista(elementoEdicion, elementoPadre, tipoEdicion);
     }
     
-    public void nuevoElemento(final O elementoNuevo) throws Exception {
-        this.addNewElement(elementoNuevo);
-        TiendaElectrodomesticosGUIController.getInstance().setElementoActual(elementoNuevo);
+    public O nuevoElemento(final O elementoNuevo) throws Exception {
+        O elementoCreado = this.addNewElement(elementoNuevo);
+        TiendaElectrodomesticosGUIController.getInstance().setElementoActual(elementoCreado);
+        return elementoCreado;
     }
     
-    public abstract void addNewElement(final O p0) throws Exception;
+    public abstract O addNewElement(final O p0) throws Exception;
 }

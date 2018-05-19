@@ -1,6 +1,7 @@
 package es.osalguero.tiendaelect.modelo.negocio;
 
-import javax.xml.bind.annotation.XmlIDREF;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import es.osalguero.tiendaelect.modelo.producto.Producto;
@@ -8,11 +9,17 @@ import es.osalguero.tiendaelect.modelo.producto.Producto;
 @XmlRootElement(name="articulo", namespace="http://es.osalguero.elect/TiendaElectrodomesticos")
 public class ArticuloVenta implements Cloneable {
 
+	
 	private Producto producto;
 	private Integer cantidad;
 	private Float precio;
 	
-	@XmlIDREF
+	@XmlID
+	public String getXmlId() {
+		return String.valueOf(producto.getId());
+	}
+	
+	@XmlElement
 	public Producto getProducto() {
 		return this.producto;
 	}

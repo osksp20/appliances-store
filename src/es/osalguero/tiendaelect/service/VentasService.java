@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+
+import com.sun.istack.internal.logging.Logger;
 
 import es.osalguero.tiendaelect.modelo.decorator.GenericListDecorator;
 import es.osalguero.tiendaelect.modelo.decorator.VentasTiendaDecorator;
@@ -18,6 +21,8 @@ import es.osalguero.tiendaelect.modelo.producto.Producto;
 
 public class VentasService extends GenericService<Venta> {
 
+	private Logger logger = Logger.getLogger(this.getClass());
+	
 	private ProductosService productosService;
 	private ClientesService clientesService;
 	
@@ -33,10 +38,15 @@ public class VentasService extends GenericService<Venta> {
 		this.productosService = productosService;
 		this.clientesService = clientesService;
 		for(Venta venta : this.listado()) {
-			for(ArticuloVenta articulo : venta.getArticulosVenta()) {
-				articulo.setProducto(productosService.getProductoById(articulo.getProducto().getId()));
+			try {
+				for(ArticuloVenta articulo : venta.getArticulosVenta()) {
+					articulo.setProducto(productosService.getProductoById(articulo.getProducto().getId()));
+				}
+				venta.setCliente(clientesService.getClienteByDni(venta.getCliente().getDni()));
+			} catch(Exception e) {
+				this.listado.remove(venta);
+				logger.log(Level.WARNING, "No ha podido reconstruirse la venta: ".concat(String.valueOf(venta.getId())));
 			}
-			venta.setCliente(clientesService.getClienteByDni(venta.getCliente().getDni()));
 		}
 	}
 

@@ -1,6 +1,7 @@
 package es.osalguero.tiendaelect.service;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import java.util.logging.Logger;
 import es.osalguero.tiendaelect.constants.EstadoReparacion;
 import es.osalguero.tiendaelect.constants.SeccionTienda;
 import es.osalguero.tiendaelect.modelo.Propiedades;
-import es.osalguero.tiendaelect.modelo.negocio.ArticuloVenta;
 import es.osalguero.tiendaelect.modelo.negocio.FichaCliente;
 import es.osalguero.tiendaelect.modelo.negocio.FichaVenta;
 import es.osalguero.tiendaelect.modelo.negocio.Reparacion;
@@ -127,6 +127,12 @@ public class TiendaService {
 			cliente.setApellido2("Prueba2");
 			cliente.setDireccion("Direccion prueba");
 			cliente.setTelefono("666666666");
+			cliente.setEmail("correo@correo.com");
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, 1980);
+			cal.set(Calendar.MONTH, 7);
+			cal.set(Calendar.DATE, 12);
+			cliente.setFechaNacimiento(cal.getTime());
 			clientesService.crear(cliente);
 		}
 		if(productosService.listado().isEmpty()) {
@@ -138,18 +144,6 @@ public class TiendaService {
 			producto.setColor("negro");
 			producto.setCantidad(2);
 			productosService.crear(producto);
-		}
-		if(ventasService.listado().isEmpty()) {
-			Venta venta = new Venta();
-			venta.setCliente(clientesService.listado().get(0));
-			List<ArticuloVenta> articulos = new ArrayList<ArticuloVenta>();
-			ArticuloVenta articulo = new ArticuloVenta();
-			articulo.setProducto(productosService.listado().get(0));
-			articulo.setCantidad(2);
-			articulo.setPrecio(articulo.getProducto().getPrecio() * articulo.getCantidad());
-			articulos.add(articulo);
-			venta.setArticulosVenta(articulos);
-			ventasService.crear(venta);
 		}
 
 		logger.info("Se han cargado "+this.productosService.listado().size()+" productos");

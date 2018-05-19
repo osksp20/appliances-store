@@ -6,10 +6,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlID;
-import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
@@ -25,8 +25,16 @@ public class Venta extends ElementoTiendaGenerico {
 	private Date fecha;
 	
 	@XmlID
-	public String getXMLID() {
-		return String.valueOf(this.getId());
+	public String getXmlId() {
+		return String.valueOf(this.id);
+	}
+	
+	public void setXmlId(String id) {
+		try {
+			this.id = Long.valueOf(id);
+		} catch(Exception e) {
+			//Nothing to do
+		}
 	}
 	
 	public Long getId() {
@@ -37,7 +45,7 @@ public class Venta extends ElementoTiendaGenerico {
 		this.id = id;
 	}
 	
-	@XmlIDREF
+	@XmlElement
 	public Cliente getCliente() {
 		return cliente;
 	}

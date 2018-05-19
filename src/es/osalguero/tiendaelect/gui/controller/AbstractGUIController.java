@@ -56,10 +56,10 @@ public abstract class AbstractGUIController<T extends VistaAbstractaGUI<?>>
     }
     
     public void showSucces(final String successMessage) {
-        JOptionPane.showMessageDialog(this.getTallerFrameContainer(), successMessage, "Operaci\u00f3n realizada", -1);
+        JOptionPane.showMessageDialog(this.getTallerFrameContainer(), successMessage, "Operación realizada", -1);
     }
     
     public int showConfirm(final String confirmMessage) {
-        return JOptionPane.showConfirmDialog(this.getTallerFrameContainer(), confirmMessage, "Confirmar operaci\u00f3n", 0);
+        return JOptionPane.showConfirmDialog(this.getTallerFrameContainer(), confirmMessage, "Confirmar operación", 0);
     }
 }

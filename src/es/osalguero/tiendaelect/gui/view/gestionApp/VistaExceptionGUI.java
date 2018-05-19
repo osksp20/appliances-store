@@ -19,8 +19,8 @@ import es.osalguero.tiendaelect.gui.view.VistaAbstractaGUI;
 
 public class VistaExceptionGUI extends VistaAbstractaGUI<VistaExceptionGUIController> implements ActionListener
 {
-    private final String MENSAJE_EXCEPTION_TITLE = "<html><p align=\"center\" style=\"font-size:14px\">Se ha producido un error en la aplicaci\u00f3n</p></html>";
-    private final String MENSAJE_EXCEPTION_DESCRIPTION = "<html><p align=\"justify\" style=\"font-size:11px\">Se ha producido un error no controlado en la aplicaci\u00f3n. Por favor,<br/>revise el fichero de log de la aplicaci\u00f3n. Si considera que el error<br/>puede deberse a un error de configuraci\u00f3n, revise la configuraci\u00f3n en<br/>el men\u00fa 'Editar' y recargue la aplicaci\u00f3n.</p></html>";
+    private final String MENSAJE_EXCEPTION_TITLE = "<html><p align=\"center\" style=\"font-size:14px\">Se ha producido un error en la aplicación</p></html>";
+    private final String MENSAJE_EXCEPTION_DESCRIPTION = "<html><p align=\"justify\" style=\"font-size:11px\">Se ha producido un error no controlado en la aplicación. Por favor,<br/>revise el fichero de log de la aplicación. Si considera que el error<br/>puede deberse a un error de configuración, revise la configuración en<br/>el menú 'Editar' y recargue la aplicación.</p></html>";
     private JButton backButton;
     
     public VistaExceptionGUI(final VistaExceptionGUIController controller) {

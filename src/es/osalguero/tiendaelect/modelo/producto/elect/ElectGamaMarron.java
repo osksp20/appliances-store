@@ -2,6 +2,7 @@ package es.osalguero.tiendaelect.modelo.producto.elect;
 
 import javax.xml.bind.annotation.XmlSeeAlso;
 
+import es.osalguero.tiendaelect.constants.MedidaAlmacenamiento;
 import es.osalguero.tiendaelect.constants.TipoAlimentacion;
 import es.osalguero.tiendaelect.constants.TipoAlmacenamiento;
 import es.osalguero.tiendaelect.constants.TipoPantalla;
@@ -15,10 +16,11 @@ import es.osalguero.tiendaelect.constants.TipoPantalla;
  *
  */
 @XmlSeeAlso({ElectFotografiaDigital.class, ElectImagen.class,
-	ElectSonido.class, ElectInformatica.class, ElectVideo.class})
+	ElectSonido.class, ElectInformatica.class, ElectVideo.class, ElectTelefonia.class})
 public abstract class ElectGamaMarron extends Electrodomestico {
 
 	private Integer capacidad;
+	private MedidaAlmacenamiento medidaAlmacenamiento;
 	private TipoAlmacenamiento tipoAlmacenamiento;
 	private TipoPantalla tipoPantalla;
 	private Integer tamanyoPantalla;
@@ -30,6 +32,14 @@ public abstract class ElectGamaMarron extends Electrodomestico {
 	
 	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
+	}
+	
+	public MedidaAlmacenamiento getMedidaAlmacenamiento() {
+		return medidaAlmacenamiento;
+	}
+	
+	public void setMedidaAlmacenamiento(MedidaAlmacenamiento medidaAlmacenamiento) {
+		this.medidaAlmacenamiento = medidaAlmacenamiento;
 	}
 	
 	public TipoAlmacenamiento getTipoAlmacenamiento() {

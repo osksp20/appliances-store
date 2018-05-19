@@ -18,8 +18,8 @@ public class VistaEdicionClienteGUIController extends VistaAbstractaEdicionGUICo
     }
     
     @Override
-    public void addNewElement(final Cliente elementoNuevo) throws Exception {
-        TiendaElectrodomesticosGUIController.getInstance().getTiendaAppService().addCliente(elementoNuevo);
+    public Cliente addNewElement(final Cliente elementoNuevo) throws Exception {
+        return TiendaElectrodomesticosGUIController.getInstance().getTiendaAppService().addCliente(elementoNuevo);
     }
     
     public void modificarCliente(final Cliente cliente) throws Exception {

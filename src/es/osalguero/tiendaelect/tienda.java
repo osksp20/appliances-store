@@ -2,8 +2,17 @@ package es.osalguero.tiendaelect;
 
 import es.osalguero.tiendaelect.app.TiendaElectrodomesticosApp;
 
-public class TiendaElectrodomesticos {
+public class tienda {
 
+	/**
+	 * Método de acceso a la aplicación.
+	 * Puede ejecutarse con el parámetro 'ficheroPropiedades=XXX' lo que permite que la 
+	 * aplicación se configure según los valores contenidos en el fichero de propiedades
+	 * indicado
+	 * 
+	 * @param args
+	 */
+	@SuppressWarnings("unused")
 	public static void main(String args[]) {
 		String ficheroPropiedades = null;
 		if(args != null && args.length > 0) {
@@ -14,7 +23,7 @@ public class TiendaElectrodomesticos {
 				}
 			}
 		}
-		new TiendaElectrodomesticosApp(ficheroPropiedades);
+		TiendaElectrodomesticosApp app = new TiendaElectrodomesticosApp(ficheroPropiedades);
 	}
 	
 }

@@ -25,7 +25,7 @@ public class Cliente extends Persona {
 	private String dni;
 	private Nomina ultimaNomina;
 	private String email;
-	
+
 	public String getTelefono() {
 		return telefono;
 	}

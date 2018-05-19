@@ -71,8 +71,6 @@ public class TiendaElectrodomesticosGUIController implements ActionListener, Win
 			this.tiendaGUI.addWindowListener(this);
 		}
 
-		
-
 		if(this.tiendaGUI.getContentPane().getComponents() == null ||
 				this.tiendaGUI.getContentPane().getComponents().length == 0 ||
 				this.tiendaGUI.getContentPane().getComponents()[0] == null) {

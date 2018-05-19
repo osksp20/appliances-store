@@ -8,7 +8,7 @@ import es.osalguero.tiendaelect.constants.SeccionTienda;
 
 @XmlRootElement(namespace="http://es.osalguero.elect/TiendaElectrodomesticos", name="electSonido")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ElectSonido extends Electrodomestico {
+public class ElectSonido extends ElectGamaMarron {
 
 	public SeccionTienda getSeccionTienda() {
 		return SeccionTienda.SONIDO;

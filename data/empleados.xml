@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><ns2:empleados xmlns:ns2="http://es.osalguero.elect/TiendaElectrodomesticos"><ns2:empleado><nombre>Administrador</nombre><apellido1>Administrador</apellido1><apellido2>Administrador</apellido2><login>admin</login><categoria>COMERCIAL</categoria><administrador>true</administrador></ns2:empleado></ns2:empleados>

@@ -146,8 +146,8 @@ public abstract class VistaAbstractaEdicionGUI<T extends VistaAbstractaEdicionGU
                 else if (TipoEdicionEnum.NUEVO.equals(this.tipoEdicion)) {
                     try {
                         final O elemento = this.crearNuevoElemento();
-                        this.getController().nuevoElemento(elemento);
-                        this.elementoEdicion = elemento;
+                        O nuevoElemento = this.getController().nuevoElemento(elemento);
+                        this.elementoEdicion = nuevoElemento;
                         okProceso = true;
                     }
 //                    catch (AppException appEx) {

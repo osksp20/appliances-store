@@ -1,9 +1,9 @@
 package es.osalguero.tiendaelect.gui.controller;
 
-import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
 import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionClienteGUIController;
 import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionEmpleadoGUIController;
 import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionProductoGUIController;
+import es.osalguero.tiendaelect.gui.controller.edicion.VistaEdicionVentaGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaCargaDatosGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaConfiguracionPropiedadesGUIController;
 import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaExceptionGUIController;
@@ -11,10 +11,12 @@ import es.osalguero.tiendaelect.gui.controller.gestionApp.VistaLoginGUIControlle
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoClientesGUIController;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoEmpleadosGUIController;
 import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoProductosGUIController;
+import es.osalguero.tiendaelect.gui.controller.listado.VistaListadoVentasGUIController;
 import es.osalguero.tiendaelect.gui.controller.principal.VistaPrincipalComercialGUIController;
 import es.osalguero.tiendaelect.gui.view.enumeration.TipoEdicionEnum;
 import es.osalguero.tiendaelect.gui.view.enumeration.VistasEnum;
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
+import es.osalguero.tiendaelect.modelo.negocio.Venta;
 import es.osalguero.tiendaelect.modelo.persona.Cliente;
 import es.osalguero.tiendaelect.modelo.persona.Empleado;
 import es.osalguero.tiendaelect.modelo.producto.Producto;
@@ -31,12 +33,10 @@ public class ControllerFactory {
                 break;
             }
             case VISTA_PRINCIPAL: {
-                if (CategoriaEmpleado.COMERCIAL.equals(empleado.getCategoria())) {
-                    controller = new VistaPrincipalComercialGUIController();
-                    break;
-                }
+                controller = new VistaPrincipalComercialGUIController();
+                break;
                 
-                throw new Exception("No se ha definido una vista para un empleado de tipo: ".concat(empleado.getCategoria().getNombre()));
+//                throw new Exception("No se ha definido una vista para un empleado de tipo: ".concat(empleado.getCategoria().getNombre()));
             }
             case VISTA_EXCEPTION: {
                 controller = new VistaExceptionGUIController();
@@ -72,6 +72,14 @@ public class ControllerFactory {
             }
             case VISTA_EDICION_PRODUCTO: {
             	controller = new VistaEdicionProductoGUIController((Producto)elementoEdicion, tipoEdicion);
+            	break;
+            }
+            case VISTA_LISTADO_VENTAS: {
+            	controller = new VistaListadoVentasGUIController((Cliente)elementoEdicion);
+            	break;
+            }
+            case VISTA_EDICION_VENTA: {
+            	controller = new VistaEdicionVentaGUIController((Venta)elementoEdicion, tipoEdicion);
             	break;
             }
             default: {

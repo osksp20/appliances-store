@@ -66,6 +66,7 @@ public class TiendaAppService {
 	public void logout() {
 		this.empleadoLogin = null;
 		this.cambiosSinGuardar = false;
+		this.empleados = this.tiendaService.getEmpleadosService().listado();
 	}
 	
 	public void guardarDatosTienda() throws Exception {
@@ -97,9 +98,10 @@ public class TiendaAppService {
 		 this.cambiosSinGuardar = true;
 	 }
 	 
-	 public void addCliente(Cliente cliente) throws Exception {
-		 this.tiendaService.getClientesService().crear(cliente);
+	 public Cliente addCliente(Cliente cliente) throws Exception {
+		 Cliente nuevoCliente = this.tiendaService.getClientesService().crear(cliente);
 		 this.cambiosSinGuardar = true;
+		 return nuevoCliente;
 	 }
 	 
 	 public void modificarCliente(Cliente cliente) throws Exception {
@@ -107,9 +109,10 @@ public class TiendaAppService {
 		 this.cambiosSinGuardar = true;
 	 }
 	 
-	 public void addEmpleado(Empleado empleado) throws Exception {
-		 this.tiendaService.getEmpleadosService().crear(empleado);
+	 public Empleado addEmpleado(Empleado empleado) throws Exception {
+		 Empleado nuevoEmpleado = this.tiendaService.getEmpleadosService().crear(empleado);
 		 this.cambiosSinGuardar = true;
+		 return nuevoEmpleado;
 	 }
 	 
 	 public void modificarEmpleado(Empleado empleado) throws Exception {
@@ -197,13 +200,33 @@ public class TiendaAppService {
 		 this.cambiosSinGuardar = true;
 	 }
 	 
-	 public void addProducto(Producto producto) throws Exception {
-		 this.tiendaService.getProductosService().crear(producto);
+	 public Producto addProducto(Producto producto) throws Exception {
+		 Producto nuevoProducto = this.tiendaService.getProductosService().crear(producto);
 		 this.cambiosSinGuardar = true;
+		 return nuevoProducto;
 	 }
 	 
 	 public void modificarProducto(Producto producto) throws Exception {
 		 this.tiendaService.getProductosService().modificar(producto);
+		 this.cambiosSinGuardar = true;
+	 }
+	 
+	 public List<Venta> getVentasTienda() {
+		 return this.tiendaService.getVentasService().listado();
+	 }
+	 
+	 public void deleteVenta(Venta venta) throws Exception {
+		 this.tiendaService.getVentasService().borrar(venta);
+	 }
+	 
+	 public Venta addVenta(Venta venta) throws Exception {
+		 Venta nuevaVenta = this.tiendaService.getVentasService().crear(venta);
+		 this.cambiosSinGuardar = true;
+		 return nuevaVenta;
+	 }
+	 
+	 public void modificarVenta(Venta venta) throws Exception {
+		 this.tiendaService.getVentasService().modificar(venta);
 		 this.cambiosSinGuardar = true;
 	 }
 }

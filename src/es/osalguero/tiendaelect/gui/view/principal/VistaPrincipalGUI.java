@@ -40,14 +40,14 @@ public abstract class VistaPrincipalGUI extends VistaAbstractaGUI<VistaPrincipal
         panelAreaTienda.add(this.buttonListadoVentas);
         this.getContainer().add(panelLabelAreaTienda);
         this.getContainer().add(panelAreaTienda);
-        final JPanel panelAreaPrivada = this.createPanelAreaPrivada();
-        if (panelAreaPrivada != null) {
-            final JPanel panelLabelAreaPrivada = GUIUtils.createOptionsLabelPanel();
-            final JLabel labelAreaPrivada = GUIUtils.createOptionsPanelLabel("Área personal");
-            panelLabelAreaPrivada.add(labelAreaPrivada);
-            this.getContainer().add(panelLabelAreaPrivada);
-            this.getContainer().add(panelAreaPrivada);
-        }
+//        final JPanel panelAreaPrivada = this.createPanelAreaPrivada();
+//        if (panelAreaPrivada != null) {
+//            final JPanel panelLabelAreaPrivada = GUIUtils.createOptionsLabelPanel();
+//            final JLabel labelAreaPrivada = GUIUtils.createOptionsPanelLabel("Área personal");
+//            panelLabelAreaPrivada.add(labelAreaPrivada);
+//            this.getContainer().add(panelLabelAreaPrivada);
+//            this.getContainer().add(panelAreaPrivada);
+//        }
     }
     
     protected abstract JPanel createPanelAreaPrivada();

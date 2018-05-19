@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.font.FontRenderContext;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
@@ -32,6 +33,7 @@ public class GUITableUtils
     private static final String[] configuracionPropiedadesHeader;
     private static final String[] ventasHeader;
     private static final String[] reparacionesHeader;
+    private static final String[] articulosVentaHeader;
     
     static {
     	productosHeader = new String[] {"ID", "Sección", "Tipo", "Marca", "Modelo", "Precio", "Stock"};
@@ -40,6 +42,7 @@ public class GUITableUtils
         configuracionPropiedadesHeader = new String[] { "Nombre variable configuración", "Valor variable" };
         ventasHeader = new String[] {"ID", "Fecha", "Importe", "Nº artículos", "Financiado", "Financiación terminada"};
         reparacionesHeader = new String[] {"ID", "Venta", "Producto", "Estado", "Empleado", "Fecha reparación", "Fecha entrega", "Importe"};
+        articulosVentaHeader = new String[] {"ID producto", "Marca", "Modelo", "Precio", "Cantidad", "Total"};
     }
     
     public static JTable getConfiguracionPropiedadesTable() {
@@ -259,6 +262,50 @@ public class GUITableUtils
     	    	
     }
     
+	public static JTable getArticulosVentaTable(final List<ArticuloVenta> articulosVenta) {
+    	final DefaultTableModel tableModel = new DefaultTableModel(GUITableUtils.articulosVentaHeader, GUITableUtils.articulosVentaHeader.length) {
+			private static final long serialVersionUID = -8497845197151949857L;
+
+			@Override
+    		public Class<?> getColumnClass(final int column) {
+    			switch(column) {
+    				default: {
+    					return String.class;
+    				}
+    			}
+    		}
+    		
+    		@Override
+    		public boolean isCellEditable(final int row, int column) {
+    			return column == 0;
+    		}
+    	};
+    	
+    	final JTable articulosVentaTable = new ElementoTiendaGenericoTable(tableModel) {
+			private static final long serialVersionUID = 3874975848591856159L;
+
+			@Override
+    		public TableCellRenderer getCellRenderer(final int row, final int column) {
+    			switch(column) {
+    				default:
+    					return super.getCellRenderer(row, column);
+    			}
+    		}
+    	};
+    	((DefaultTableModel)articulosVentaTable.getModel()).setRowCount(0);
+        if (articulosVenta != null) {
+            for (final ArticuloVenta articulo : articulosVenta) {
+                if (articulo != null) {
+                    final Object[] elementData = getDataFromElement(articulo);
+                    ((DefaultTableModel)articulosVentaTable.getModel()).addRow(elementData);
+                }
+            }
+        }
+        decorateJTable(articulosVentaTable);
+        return articulosVentaTable;
+    	
+    }
+    
     public static JTable getProductosTable(final List<Producto> productos) {
         final DefaultTableModel tableModel = new DefaultTableModel(GUITableUtils.productosHeader, GUITableUtils.productosHeader.length) {
             private static final long serialVersionUID = 7570741393834743697L;
@@ -383,6 +430,15 @@ public class GUITableUtils
         		cliente.getUltimaNomina() != null ? cliente.getUltimaNomina().getFecha() : null
         };
         return clienteData;
+    }
+    
+    public static Object[] getDataFromElement(final ArticuloVenta articuloVenta) {
+    	final Object[] articuloVentaData = {
+    			articuloVenta.getProducto().getId(), articuloVenta.getProducto().getMarca(), articuloVenta.getProducto().getModelo(),
+    			new BigDecimal(articuloVenta.getPrecio()).setScale(2, RoundingMode.HALF_UP).doubleValue(), articuloVenta.getCantidad(),
+    			new BigDecimal(articuloVenta.getPrecio()).multiply(new BigDecimal(articuloVenta.getCantidad())).setScale(2, RoundingMode.HALF_UP).doubleValue()
+    	};
+    	return articuloVentaData;
     }
     
     public static Object[] getDataFromElement(final Empleado empleado) {

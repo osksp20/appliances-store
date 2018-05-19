@@ -18,8 +18,8 @@ public class VistaEdicionProductoGUIController extends VistaAbstractaEdicionGUIC
     }
     
     @Override
-    public void addNewElement(final Producto nuevoProducto) throws Exception {
-        TiendaElectrodomesticosGUIController.getInstance().getTiendaAppService().addProducto(nuevoProducto);
+    public Producto addNewElement(final Producto nuevoProducto) throws Exception {
+        return TiendaElectrodomesticosGUIController.getInstance().getTiendaAppService().addProducto(nuevoProducto);
     }
     
     public void modificarProducto(final Producto producto) throws Exception {

@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicComboBoxRenderer;
 
 import es.osalguero.tiendaelect.constants.CategoriaEmpleado;
+import es.osalguero.tiendaelect.constants.MedidaAlmacenamiento;
 import es.osalguero.tiendaelect.constants.Provincias;
 import es.osalguero.tiendaelect.constants.SeccionTienda;
 import es.osalguero.tiendaelect.constants.TipoAlimentacion;
@@ -31,8 +32,28 @@ import es.osalguero.tiendaelect.constants.TipoPantalla;
 public class GUIUtils
 {   
 	@SuppressWarnings("unchecked")
+	public static JComboBox<MedidaAlmacenamiento> getMedidaAlmacenamientoComboBox(final boolean firstNull) {
+		final JComboBox<MedidaAlmacenamiento> medidaAlmacenamientoComboBox = new JComboBox<MedidaAlmacenamiento>(MedidaAlmacenamiento.values());
+		medidaAlmacenamientoComboBox.setRenderer(new BasicComboBoxRenderer() {
+			private static final long serialVersionUID = 45692578919059504L;
+
+			@Override
+			public void paint(final Graphics g) {
+				this.setForeground(Color.BLACK);
+				super.paint(g);
+			}
+		});
+		if(firstNull) {
+			medidaAlmacenamientoComboBox.insertItemAt(null, 0);
+			medidaAlmacenamientoComboBox.setSelectedIndex(-1);
+		}
+		medidaAlmacenamientoComboBox.setPreferredSize(new Dimension(new Double(medidaAlmacenamientoComboBox.getPreferredSize().getWidth()).intValue(), 20));
+		return medidaAlmacenamientoComboBox;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static JComboBox<TipoAlmacenamiento> getTipoAlmacenamientoComboBox(final boolean firstNull) {
-		final JComboBox<TipoAlmacenamiento> tipoAlmacenamientoComboBox = new JComboBox<TipoAlmacenamiento>();
+		final JComboBox<TipoAlmacenamiento> tipoAlmacenamientoComboBox = new JComboBox<TipoAlmacenamiento>(TipoAlmacenamiento.values());
 		tipoAlmacenamientoComboBox.setRenderer(new BasicComboBoxRenderer() {
 			private static final long serialVersionUID = 45692578919059504L;
 
@@ -46,12 +67,13 @@ public class GUIUtils
 			tipoAlmacenamientoComboBox.insertItemAt(null, 0);
 			tipoAlmacenamientoComboBox.setSelectedIndex(-1);
 		}
+		tipoAlmacenamientoComboBox.setPreferredSize(new Dimension(new Double(tipoAlmacenamientoComboBox.getPreferredSize().getWidth()).intValue(), 20));
 		return tipoAlmacenamientoComboBox;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static JComboBox<TipoAlimentacion> getTipoAlimentacionComboBox(final boolean firstNull) {
-		final JComboBox<TipoAlimentacion> tipoAlimentacionComboBox = new JComboBox<TipoAlimentacion>();
+		final JComboBox<TipoAlimentacion> tipoAlimentacionComboBox = new JComboBox<TipoAlimentacion>(TipoAlimentacion.values());
 		tipoAlimentacionComboBox.setRenderer(new BasicComboBoxRenderer() {
 			private static final long serialVersionUID = 45692578919059504L;
 
@@ -65,12 +87,13 @@ public class GUIUtils
 			tipoAlimentacionComboBox.insertItemAt(null, 0);
 			tipoAlimentacionComboBox.setSelectedIndex(-1);
 		}
+		tipoAlimentacionComboBox.setPreferredSize(new Dimension(new Double(tipoAlimentacionComboBox.getPreferredSize().getWidth()).intValue(), 20));
 		return tipoAlimentacionComboBox;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public static JComboBox<TipoPantalla> getTipoPantallaComboBox(final boolean firstNull) {
-		final JComboBox<TipoPantalla> tipoPantallaComboBox = new JComboBox<TipoPantalla>();
+		final JComboBox<TipoPantalla> tipoPantallaComboBox = new JComboBox<TipoPantalla>(TipoPantalla.values());
 		tipoPantallaComboBox.setRenderer(new BasicComboBoxRenderer() {
 			private static final long serialVersionUID = 45692578919059504L;
 
@@ -84,6 +107,7 @@ public class GUIUtils
 			tipoPantallaComboBox.insertItemAt(null, 0);
 			tipoPantallaComboBox.setSelectedIndex(-1);
 		}
+		tipoPantallaComboBox.setPreferredSize(new Dimension(new Double(tipoPantallaComboBox.getPreferredSize().getWidth()).intValue(), 20));
 		return tipoPantallaComboBox;
 	}
 	
@@ -114,6 +138,7 @@ public class GUIUtils
             booleanComboBox.insertItemAt(null, 0);
             booleanComboBox.setSelectedIndex(-1);
         }
+        booleanComboBox.setPreferredSize(new Dimension(new Double(booleanComboBox.getPreferredSize().getWidth()).intValue(), 20));
         return booleanComboBox;
     }
 
@@ -135,6 +160,7 @@ public class GUIUtils
 				super.paint(g);
 			}
 			
+			@SuppressWarnings("rawtypes")
 			@Override
 			public Component getListCellRendererComponent(final JList list, Object value, final int index, final boolean isSelected, final boolean cellHasFocus) {
 				if(value != null) {
@@ -147,6 +173,7 @@ public class GUIUtils
 			seccionAccesorioComboBox.insertItemAt(null, 0);
 			seccionAccesorioComboBox.setSelectedItem(-1);
 		}
+		seccionAccesorioComboBox.setPreferredSize(new Dimension(new Double(seccionAccesorioComboBox.getPreferredSize().getWidth()).intValue(), 20));
 		return seccionAccesorioComboBox;
 	}
 	
@@ -175,6 +202,7 @@ public class GUIUtils
 			seccionTiendaComboBox.insertItemAt(null, 0);
 			seccionTiendaComboBox.setSelectedIndex(-1);
 		}
+		seccionTiendaComboBox.setPreferredSize(new Dimension(new Double(seccionTiendaComboBox.getPreferredSize().getWidth()).intValue(), 20));
 		return seccionTiendaComboBox;
 	}
 	
@@ -203,6 +231,7 @@ public class GUIUtils
             categoriaEmpleadoComboBox.insertItemAt(null, 0);
             categoriaEmpleadoComboBox.setSelectedIndex(-1);
         }
+        categoriaEmpleadoComboBox.setPreferredSize(new Dimension(new Double(categoriaEmpleadoComboBox.getPreferredSize().getWidth()).intValue(), 20));
         return categoriaEmpleadoComboBox;
     }
 
@@ -231,6 +260,7 @@ public class GUIUtils
             provinciaComboBox.insertItemAt(null, 0);
             provinciaComboBox.setSelectedIndex(-1);
         }
+        provinciaComboBox.setPreferredSize(new Dimension(new Double(provinciaComboBox.getPreferredSize().getWidth()).intValue(), 20));
         return provinciaComboBox;
     }
     
@@ -250,6 +280,7 @@ public class GUIUtils
     		stringComboBox.insertItemAt(null, 0);
     		stringComboBox.setSelectedIndex(-1);
     	}
+    	stringComboBox.setPreferredSize(new Dimension(new Double(stringComboBox.getPreferredSize().getWidth()).intValue(), 20));
     	return stringComboBox;
     }
     

@@ -3,12 +3,14 @@ package es.osalguero.tiendaelect.modelo.producto;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlID;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 
 import es.osalguero.tiendaelect.modelo.ElementoTiendaGenerico;
 import es.osalguero.tiendaelect.modelo.producto.acc.Accesorio;
 import es.osalguero.tiendaelect.modelo.producto.elect.Electrodomestico;
 
+@XmlRootElement(namespace="http://es.osalguero.elect/TiendaElectrodomesticos", name="producto")
 @XmlSeeAlso({Accesorio.class, Electrodomestico.class})
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public abstract class Producto extends ElementoTiendaGenerico implements ProductoInterface {
@@ -22,10 +24,18 @@ public abstract class Producto extends ElementoTiendaGenerico implements Product
 	private int cantidad;
 	
 	@XmlID
-	public String getXMLID() {
+	public String getXmlId() {
 		return String.valueOf(this.getId());
 	}
 	
+	public void setXmlId(String id) {
+		try {
+			this.id = Long.parseLong(id);
+		} catch(Exception e) {
+			//Nothing to do
+		}
+	}
+
 	public Long getId() {
 		return id;
 	}

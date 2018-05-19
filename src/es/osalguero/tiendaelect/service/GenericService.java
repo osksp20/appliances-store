@@ -20,7 +20,7 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 
 	public GenericService() {
-		listado = inicializarListado();
+		inicializarListado();
 		if(listado == null) {
 			listado = new ArrayList<T>();
 		}
@@ -28,15 +28,14 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 	
 	public GenericService(String ficheroElementos) {
 		this.ficheroElementos = ficheroElementos;
-		listado = inicializarListado();
+		inicializarListado();
 		if(listado == null) {
 			listado = new ArrayList<T>();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	protected List<T> inicializarListado() {
-		List<T> elementos = new ArrayList<T>();
+	protected void inicializarListado() {
 		try {
 			JAXBContext jbContext = JAXBContext.newInstance(getElementsDecoratorClass());
 			Unmarshaller unmarshaller = jbContext.createUnmarshaller();
@@ -47,7 +46,6 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 		} catch(Exception e) {
 			logger.warning("No se ha podido inicializar la lista de elementos");
 		}
-		return elementos;
 	}
 	
 	protected String getFicheroElementos() {
@@ -141,6 +139,8 @@ public abstract class GenericService<T extends ElementoTiendaGenerico> {
 			em.marshal(decorator, new File(this.getFicheroElementos()));
 		} catch(Exception e) {
 			logger.log(Level.SEVERE, "Se ha producido un error intentando guardar los elementos", e);
+		} finally {
+			
 		}
 	}
 	

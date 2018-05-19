@@ -10,10 +10,12 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import es.osalguero.tiendaelect.constants.MedidaAlmacenamiento;
 import es.osalguero.tiendaelect.constants.SeccionTienda;
 import es.osalguero.tiendaelect.constants.TipoAlimentacion;
 import es.osalguero.tiendaelect.constants.TipoAlmacenamiento;
@@ -74,6 +76,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     private JComboBox<TipoPantalla> tipoPantalla;
     private JComboBox<TipoAlimentacion> tipoAlimentacion;
     private JComboBox<SeccionTienda> seccionAccesorio;
+    private JComboBox<MedidaAlmacenamiento> medidaAlmacenamiento;
     private JTextField id;
     private JTextField tipo;
     private JTextField marca;
@@ -81,6 +84,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     private JTextField stock;
     private JTextField precio;
     private JTextArea caracteristicas;
+    protected JScrollPane scrollCaracteristicas;
     private JTextField anchoElect;
     private JTextField altoElect;
     private JTextField profundidadElect;
@@ -88,6 +92,10 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     private JTextField almacenamientoCapacidad;
     private JTextField pantallaTamanyo;
     private JCheckBox fotoDigital;
+    private JSeparator accSeparator;
+    private JSeparator tipoSeparator;
+    private JSeparator tipoFotoDigitalSeparator;
+    private JSeparator fotoDigitalSeparator;
     
     public VistaEdicionProductoGUI(final VistaEdicionProductoGUIController controller, final Producto producto, final TipoEdicionEnum tipoEdicion) {
         super(controller, producto, tipoEdicion, null);
@@ -111,65 +119,77 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     @Override
     protected void fillEditPanel(final JPanel editFieldsPanel) {
         (this.datosProductoLbl = new JLabel("Datos del producto")).setBackground(Color.BLUE);
-        (this.idProductoLbl = new JLabel("ID:")).setPreferredSize(new Dimension(100,20));
-        (this.seccionTiendaProductoLbl = new JLabel("Seccion:")).setPreferredSize(new Dimension(100,20));
-        (this.tipoProductoLbl = new JLabel("Tipo:")).setPreferredSize(new Dimension(100, 20));
-        (this.marcaProductoLbl = new JLabel("Marca:")).setPreferredSize(new Dimension(100,20));
+        (this.idProductoLbl = new JLabel("ID:")).setPreferredSize(new Dimension(80,20));
+        (this.seccionTiendaProductoLbl = new JLabel("Seccion:")).setPreferredSize(new Dimension(70,20));
+        (this.tipoProductoLbl = new JLabel("Tipo:")).setPreferredSize(new Dimension(60, 20));
+        (this.marcaProductoLbl = new JLabel("Marca:")).setPreferredSize(new Dimension(80,20));
         (this.modeloProductoLbl = new JLabel("Modelo:")).setPreferredSize(new Dimension(100,20));
-        (this.stockProductoLbl = new JLabel("Stock:")).setPreferredSize(new Dimension(100,20));
-        (this.precioProductoLbl = new JLabel("Precio:")).setPreferredSize(new Dimension(100,20));
+        (this.stockProductoLbl = new JLabel("Stock:")).setPreferredSize(new Dimension(70,20));
+        (this.precioProductoLbl = new JLabel("Precio:")).setPreferredSize(new Dimension(70,20));
         (this.caracteristicasProductoLbl = new JLabel("Características:")).setPreferredSize(new Dimension(100,20));
-        (this.anchoElectLbl = new JLabel("Ancho:")).setPreferredSize(new Dimension(100,20));
-        (this.altoElectLbl = new JLabel("Alto:")).setPreferredSize(new Dimension(100,20));
-        (this.profundidadElectLbl = new JLabel("Profundidad:")).setPreferredSize(new Dimension(100,20));
-        (this.colorElectLbl = new JLabel("Color:")).setPreferredSize(new Dimension(100,20));
-        (this.almacenamientoLbl = new JLabel("Almacenamiento:")).setPreferredSize(new Dimension(100,20));
-        (this.pantallaLbl = new JLabel("Tamaño pantalla (pulgadas):")).setPreferredSize(new Dimension(100,20));
+        (this.anchoElectLbl = new JLabel("Ancho (cm):")).setPreferredSize(new Dimension(80,20));
+        (this.altoElectLbl = new JLabel("Alto (cm):")).setPreferredSize(new Dimension(80,20));
+        (this.profundidadElectLbl = new JLabel("Profundidad (cm):")).setPreferredSize(new Dimension(120,20));
+        (this.colorElectLbl = new JLabel("Color:")).setPreferredSize(new Dimension(80,20));
+        (this.almacenamientoLbl = new JLabel("Almacenamiento:")).setPreferredSize(new Dimension(120,20));
+        (this.pantallaLbl = new JLabel("Tamaño pantalla (pulgadas):")).setPreferredSize(new Dimension(180,20));
         (this.tipoPantallaLbl = new JLabel("Tipo pantalla:")).setPreferredSize(new Dimension(100,20));
-        (this.tipoAlimentacionLbl = new JLabel("Tipo alimentacion:")).setPreferredSize(new Dimension(100,20));
-        (this.seccionAccesorioLbl = new JLabel("Sección accesorio:")).setPreferredSize(new Dimension(100,20));
+        (this.tipoAlimentacionLbl = new JLabel("Tipo alimentacion:")).setPreferredSize(new Dimension(120,20));
+        (this.seccionAccesorioLbl = new JLabel("Sección accesorio:")).setPreferredSize(new Dimension(120,20));
+        this.accSeparator = this.createSeparator(30);
+        this.tipoSeparator = this.createSeparator(240);
+        this.fotoDigitalSeparator = this.createSeparator(30);
+        this.tipoFotoDigitalSeparator = this.createSeparator(120);
         
         (this.id = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.tipo = new JTextField(15)).setDisabledTextColor(Color.BLACK);
+        (this.tipo = new JTextField(17)).setDisabledTextColor(Color.BLACK);
         (this.marca = new JTextField(15)).setDisabledTextColor(Color.BLACK);
         (this.modelo = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.stock = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.precio = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.caracteristicas = new JTextArea(10, 100)).setDisabledTextColor(Color.BLACK);
-        (this.anchoElect = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.altoElect = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.profundidadElect = new JTextField(15)).setDisabledTextColor(Color.BLACK);
+        (this.stock = new JTextField(6)).setDisabledTextColor(Color.BLACK);
+        (this.precio = new JTextField(6)).setDisabledTextColor(Color.BLACK);
+        (this.caracteristicas = new JTextArea()).setLineWrap(true);
+        this.caracteristicas.setWrapStyleWord(true);
+        (this.scrollCaracteristicas = new JScrollPane(this.caracteristicas, 20, 30)).setPreferredSize(
+        		new Dimension(new Double(this.getContainer().getPreferredSize().getWidth()).intValue() - 18, 370));
+
+        (this.anchoElect = new JTextField(6)).setDisabledTextColor(Color.BLACK);
+        (this.altoElect = new JTextField(6)).setDisabledTextColor(Color.BLACK);
+        (this.profundidadElect = new JTextField(6)).setDisabledTextColor(Color.BLACK);
         (this.colorElect = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.almacenamientoCapacidad = new JTextField(15)).setDisabledTextColor(Color.BLACK);
-        (this.pantallaTamanyo = new JTextField(15)).setDisabledTextColor(Color.BLACK);
+        (this.almacenamientoCapacidad = new JTextField(4)).setDisabledTextColor(Color.BLACK);
+        (this.pantallaTamanyo = new JTextField(4)).setDisabledTextColor(Color.BLACK);
         this.seccionTiendaProducto = GUIUtils.getSeccionTiendaComboBox(false);
         this.tipoAlmacenamiento = GUIUtils.getTipoAlmacenamientoComboBox(true);
         this.tipoPantalla = GUIUtils.getTipoPantallaComboBox(true);
         this.tipoAlimentacion = GUIUtils.getTipoAlimentacionComboBox(true);
-        this.fotoDigital = new JCheckBox();
+        this.fotoDigital = new JCheckBox("Digital");
         this.seccionAccesorio = GUIUtils.getSeccionAccesorioComboBox(false);
+        this.medidaAlmacenamiento = GUIUtils.getMedidaAlmacenamientoComboBox(true);
         
         editFieldsPanel.add(this.datosProductoLbl);
         editFieldsPanel.add(this.getLineSeparator(new Double(editFieldsPanel.getPreferredSize().getWidth()).intValue() - 6));
         editFieldsPanel.setLayout(new FlowLayout(0, 2, 6));
         editFieldsPanel.add(this.idProductoLbl);
         editFieldsPanel.add(this.id);
-        editFieldsPanel.add(this.createSeparator(50));
+        editFieldsPanel.add(this.createSeparator(30));
         editFieldsPanel.add(this.seccionTiendaProductoLbl);
         editFieldsPanel.add(this.seccionTiendaProducto);
-        editFieldsPanel.add(this.createSeparator(50));
+        editFieldsPanel.add(accSeparator);
         editFieldsPanel.add(this.seccionAccesorioLbl);
         editFieldsPanel.add(this.seccionAccesorio);
-        editFieldsPanel.add(this.createSeparator(50));
+        editFieldsPanel.add(this.createSeparator(30));
+        editFieldsPanel.add(this.fotoDigital);
+        editFieldsPanel.add(fotoDigitalSeparator);
         editFieldsPanel.add(this.tipoProductoLbl);
         editFieldsPanel.add(this.tipo);
-        editFieldsPanel.add(this.createSeparator(30));
+        editFieldsPanel.add(tipoSeparator);
+        editFieldsPanel.add(tipoFotoDigitalSeparator);
         editFieldsPanel.add(this.marcaProductoLbl);
         editFieldsPanel.add(this.marca);
-        editFieldsPanel.add(this.createSeparator(50));
+        editFieldsPanel.add(this.createSeparator(30));
         editFieldsPanel.add(this.modeloProductoLbl);
         editFieldsPanel.add(this.modelo);
-        editFieldsPanel.add(this.createSeparator(20));
+        editFieldsPanel.add(this.createSeparator(50));
         editFieldsPanel.add(this.stockProductoLbl);
         editFieldsPanel.add(this.stock);
         editFieldsPanel.add(this.createSeparator(50));
@@ -189,26 +209,29 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
         panelGamaBlanca.add(this.colorElectLbl);
         panelGamaBlanca.add(this.colorElect);
         editFieldsPanel.add(panelGamaBlanca);
-        (this.panelGamaMarron = new JPanel(new FlowLayout(0, 0, 0))).setPreferredSize(new Dimension(new Double(editFieldsPanel.getPreferredSize().getWidth()).intValue(), 20));
+        (this.panelGamaMarron = new JPanel(new FlowLayout(0, 0, 0))).setPreferredSize(new Dimension(new Double(editFieldsPanel.getPreferredSize().getWidth()).intValue(), 26));
         panelGamaMarron.add(this.almacenamientoLbl);
         panelGamaMarron.add(this.almacenamientoCapacidad);
+        panelGamaMarron.add(this.createSeparator(4));
+        panelGamaMarron.add(this.medidaAlmacenamiento);
+        panelGamaMarron.add(this.createSeparator(4));
         panelGamaMarron.add(this.tipoAlmacenamiento);
-        panelGamaMarron.add(this.createSeparator(40));
+        panelGamaMarron.add(this.createSeparator(30));
         panelGamaMarron.add(this.pantallaLbl);
         panelGamaMarron.add(this.pantallaTamanyo);
-        panelGamaMarron.add(this.createSeparator(50));
+        panelGamaMarron.add(this.createSeparator(30));
         panelGamaMarron.add(this.tipoPantallaLbl);
         panelGamaMarron.add(this.tipoPantalla);
-        panelGamaMarron.add(this.createSeparator(50));
+        panelGamaMarron.add(this.createSeparator(30));
         panelGamaMarron.add(this.tipoAlimentacionLbl);
         panelGamaMarron.add(this.tipoAlimentacion);
         editFieldsPanel.add(panelGamaMarron);
         editFieldsPanel.add(this.caracteristicasProductoLbl);
-        editFieldsPanel.add(this.caracteristicas);
-        editFieldsPanel.add(this.createSeparator(30));
+        editFieldsPanel.add(this.scrollCaracteristicas);
         this.manageTipoProducto();
         
         this.seccionTiendaProducto.addItemListener(this);
+        this.fotoDigital.addItemListener(this);
     }
     
     @Override
@@ -251,17 +274,20 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     			throw new FilterFormatException("El formato del campo 'Profundidad' debe ser numérico entero");
     		}
         } else if(this.isSeccionGamaMarron((SeccionTienda)this.seccionTiendaProducto.getSelectedItem())) {
-        	if(almacenamientoCapacidad.getText() != null) {
+        	if(!almacenamientoCapacidad.getText().trim().isEmpty()) {
         		try {
         			Integer.parseInt(this.almacenamientoCapacidad.getText());
         		} catch(Exception e) {
         			throw new FilterFormatException("El formato del campo 'Almacenamiento capacidad' debe ser numérico entero");
         		}
         		if(this.tipoAlmacenamiento.getSelectedItem() == null) {
+        			throw new FilterFormatException("Debe seleccionar el tipo de almacenamiento");
+        		}
+        		if(this.medidaAlmacenamiento.getSelectedItem() == null) {
         			throw new FilterFormatException("Debe seleccionar la medida de almacenamiento");
         		}
         	}
-        	if(this.pantallaTamanyo.getText() != null) {
+        	if(!this.pantallaTamanyo.getText().trim().isEmpty()) {
         		try {
         			Integer.parseInt(this.pantallaTamanyo.getText());
         		} catch(Exception e) {
@@ -270,6 +296,9 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
         		if(this.tipoPantalla.getSelectedItem() == null) {
         			throw new FilterFormatException("Debe seleccionar el tipo de pantalla");
         		}
+        	}
+        	if(this.medidaAlmacenamiento.getSelectedItem() != null && this.almacenamientoCapacidad.getText().trim().isEmpty()) {
+        		throw new FilterFormatException("Si indica la medida de almacenamiento, debe indicar la capacidad");
         	}
         }
     }
@@ -288,15 +317,16 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
         	((ElectGamaBlanca)this.elementoEdicion).setProfundidad(Integer.parseInt(this.profundidadElect.getText()));
         	((ElectGamaBlanca)this.elementoEdicion).setColor(this.colorElect.getText());
         } else if(this.isSeccionGamaMarron((SeccionTienda)this.seccionTiendaProducto.getSelectedItem())) {
-        	if(this.almacenamientoCapacidad.getText() != null) {
-	        	((ElectGamaMarron)this.elementoEdicion).setTipoAlmacenamiento((TipoAlmacenamiento)this.tipoAlmacenamiento.getSelectedItem());
+        	if(!this.almacenamientoCapacidad.getText().trim().isEmpty()) {
 	        	((ElectGamaMarron)this.elementoEdicion).setCapacidad(Integer.parseInt(this.almacenamientoCapacidad.getText()));
         	}
-        	if(this.pantallaTamanyo.getText() != null) {
+        	if(!this.pantallaTamanyo.getText().trim().isEmpty()) {
         		((ElectGamaMarron)this.elementoEdicion).setTamanyoPantalla(Integer.parseInt(this.pantallaTamanyo.getText()));
         		((ElectGamaMarron)this.elementoEdicion).setTipoPantalla((TipoPantalla)this.tipoPantalla.getSelectedItem());
         	}
         	((ElectGamaMarron)this.elementoEdicion).setTipoAlimentacion((TipoAlimentacion)this.tipoAlimentacion.getSelectedItem());
+        	((ElectGamaMarron)this.elementoEdicion).setTipoAlmacenamiento((TipoAlmacenamiento)this.tipoAlmacenamiento.getSelectedItem());
+        	((ElectGamaMarron)this.elementoEdicion).setMedidaAlmacenamiento((MedidaAlmacenamiento)this.medidaAlmacenamiento.getSelectedItem());
         }
         ((VistaEdicionProductoGUIController)this.getController()).modificarProducto((Producto)this.elementoEdicion);
     }
@@ -307,14 +337,17 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     	if (TipoEdicionEnum.NUEVO.equals(this.tipoEdicion)) {
             this.seccionTiendaProducto.setEnabled(true);
             this.seccionAccesorio.setEnabled(true);
+            this.fotoDigital.setEnabled(true);
         }
         else {
             this.seccionTiendaProducto.setEnabled(false);
             this.seccionAccesorio.setEnabled(false);
+            this.fotoDigital.setEnabled(false);
         }
         final boolean enabled = !TipoEdicionEnum.DETALLE.equals(this.tipoEdicion);
         this.marca.setEnabled(enabled);
         this.modelo.setEnabled(enabled);
+        this.tipo.setEnabled(enabled);
         this.stock.setEnabled(enabled);
         this.precio.setEnabled(enabled);
         this.caracteristicas.setEnabled(enabled);
@@ -326,6 +359,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
         this.pantallaTamanyo.setEnabled(enabled);
         this.fotoDigital.setEnabled(enabled);
         this.tipoAlimentacion.setEnabled(enabled);
+        this.medidaAlmacenamiento.setEnabled(enabled);
         this.tipoAlmacenamiento.setEnabled(enabled);
         this.tipoPantalla.setEnabled(enabled);
         this.manageViewData();
@@ -408,7 +442,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     	producto.setModelo(this.modelo.getText());
     	producto.setTipo(this.tipo.getText());
     	producto.setCantidad(Integer.parseInt(this.stock.getText()));
-    	producto.setPrecio(Float.parseFloat(this.precio.getText()));
+    	producto.setPrecio(Float.parseFloat(this.precio.getText().replaceAll(",", "\\.")));
     	producto.setTipo(this.tipo.getText());
     	producto.setCaracteristicas(this.caracteristicas.getText());
     	if(isSeccionGamaMarron((SeccionTienda)this.seccionTiendaProducto.getSelectedItem())) {
@@ -421,6 +455,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     			((ElectGamaMarron)producto).setCapacidad(Integer.parseInt(this.almacenamientoCapacidad.getText()));
     			((ElectGamaMarron)producto).setTipoAlmacenamiento((TipoAlmacenamiento)this.tipoAlmacenamiento.getSelectedItem());
     		}
+    		((ElectGamaMarron)producto).setMedidaAlmacenamiento((MedidaAlmacenamiento)this.medidaAlmacenamiento.getSelectedItem());
     	}
         return producto;
     }
@@ -434,7 +469,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
     
     @Override
     public void itemStateChanged(final ItemEvent e) {
-        if (e.getSource().equals(this.seccionTiendaProducto) && e.getStateChange() == 1) {
+        if ((e.getSource().equals(this.seccionTiendaProducto) && e.getStateChange() == 1) || e.getSource().equals(fotoDigital)) {
             this.manageTipoProducto();
             this.getContainer().revalidate();
             this.getContainer().repaint();
@@ -446,6 +481,12 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
         this.panelGamaMarron.setVisible(isSeccionGamaMarron((SeccionTienda)this.seccionTiendaProducto.getSelectedItem()));
         this.seccionAccesorio.setVisible(SeccionTienda.ACCESORIOS.equals(this.seccionTiendaProducto.getSelectedItem()));
         this.seccionAccesorioLbl.setVisible(SeccionTienda.ACCESORIOS.equals(this.seccionTiendaProducto.getSelectedItem()));
+        this.accSeparator.setVisible(SeccionTienda.ACCESORIOS.equals(this.seccionTiendaProducto.getSelectedItem()));
+        this.tipoSeparator.setVisible(!SeccionTienda.ACCESORIOS.equals(this.seccionTiendaProducto.getSelectedItem()) &&
+        		!SeccionTienda.FOTO.equals(this.seccionTiendaProducto.getSelectedItem()));
+        this.tipoFotoDigitalSeparator.setVisible(SeccionTienda.FOTO.equals(this.seccionTiendaProducto.getSelectedItem()));
+        this.fotoDigital.setVisible(SeccionTienda.FOTO.equals(this.seccionTiendaProducto.getSelectedItem()));
+        this.fotoDigitalSeparator.setVisible(SeccionTienda.FOTO.equals(this.seccionTiendaProducto.getSelectedItem()));
     }
     
     private void validateMandatoryString(final String fieldName, final String value) throws FilterFormatException {
@@ -470,6 +511,7 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
             this.panelLabelEdicion.setPreferredSize(new Dimension(new Double(this.getContainer().getPreferredSize().getWidth()).intValue() - 12, 35));
         }
         if (this.elementoEdicion != null && !TipoEdicionEnum.NUEVO.equals(this.tipoEdicion)) {
+        	this.fotoDigital.setSelected(this.elementoEdicion instanceof ElectFotografiaDigital);
             this.id.setText(String.valueOf(((Producto)this.elementoEdicion).getId()));
             this.seccionTiendaProducto.setSelectedItem(((Producto)this.elementoEdicion).getSeccionTienda());
             if(SeccionTienda.ACCESORIOS.equals(((Producto)this.elementoEdicion).getSeccionTienda())) {
@@ -487,11 +529,16 @@ public class VistaEdicionProductoGUI extends VistaAbstractaEdicionGUI<VistaEdici
             	this.profundidadElect.setText(String.valueOf(((ElectGamaBlanca)this.elementoEdicion).getProfundidad()));
             	this.colorElect.setText(String.valueOf(((ElectGamaBlanca)this.elementoEdicion).getColor()));
             } else if(isSeccionGamaMarron(((Producto)this.elementoEdicion).getSeccionTienda())) {
-            	this.almacenamientoCapacidad.setText(String.valueOf(((ElectGamaMarron)this.elementoEdicion).getCapacidad()));
-            	this.pantallaTamanyo.setText(String.valueOf(((ElectGamaMarron)this.elementoEdicion).getTamanyoPantalla()));
+            	if(((ElectGamaMarron)this.elementoEdicion).getCapacidad() != null) {
+            		this.almacenamientoCapacidad.setText(String.valueOf(((ElectGamaMarron)this.elementoEdicion).getCapacidad()));
+            	}
+            	if(((ElectGamaMarron)this.elementoEdicion).getTamanyoPantalla() != null) {
+            		this.pantallaTamanyo.setText(String.valueOf(((ElectGamaMarron)this.elementoEdicion).getTamanyoPantalla()));
+            	}
             	this.tipoAlmacenamiento.setSelectedItem(((ElectGamaMarron)this.elementoEdicion).getTipoAlmacenamiento());
             	this.tipoAlimentacion.setSelectedItem(((ElectGamaMarron)this.elementoEdicion).getTipoAlimentacion());
             	this.tipoPantalla.setSelectedItem(((ElectGamaMarron)this.elementoEdicion).getTipoPantalla());
+            	this.medidaAlmacenamiento.setSelectedItem(((ElectGamaMarron)this.elementoEdicion).getMedidaAlmacenamiento());
             }
         }
     }

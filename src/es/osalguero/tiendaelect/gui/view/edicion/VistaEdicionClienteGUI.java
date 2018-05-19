@@ -205,7 +205,7 @@ public class VistaEdicionClienteGUI extends VistaAbstractaEdicionGUI<VistaEdicio
         }
         this.validateMandatoryString("Nombre", this.nombre.getText());
         this.validateMandatoryString("1er apellido", this.apellido1.getText());
-        this.validateMandatoryString("2º", this.apellido2.getText());
+        this.validateMandatoryString("2º apellido", this.apellido2.getText());
         this.validateMandatoryString("Fecha de nacimiento", this.fechaNac.getText());
         this.validateMandatoryString("Direccion", this.direccion.getText());
         this.validateMandatoryString("Teléfono", this.tlf.getText());
